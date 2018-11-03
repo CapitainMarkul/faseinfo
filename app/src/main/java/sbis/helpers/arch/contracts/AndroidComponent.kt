@@ -4,6 +4,6 @@ import android.app.Activity
 import android.support.v4.app.FragmentManager
 
 interface AndroidComponent {
-    fun getComponentActivity(): Activity
-    fun getComponentFragmentManager(): FragmentManager
+    val activity: Activity
+    val fragmentManager: FragmentManager
 }

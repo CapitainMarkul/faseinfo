@@ -6,22 +6,20 @@ import sbis.helpers.arch.contracts.MvpViewModel
 
 abstract class BasePresenter<VM : MvpViewModel> : MvpPresenter<VM> {
 
-    override lateinit var viewModel: VM
-    private var component: AndroidComponent? = null
+    override lateinit var vm: VM
+    protected var androidComponent: AndroidComponent? = null
 
     override fun attachView(viewModel: VM, component: AndroidComponent) {
-        this.viewModel = viewModel
-        this.component = component
+        vm = viewModel
+        androidComponent = component
     }
 
     override fun detachView() {
-        component = null
+        androidComponent = null
     }
 
-    override fun isAttachedView() = component != null
+    override fun isAttachedView() = androidComponent != null
 
     override fun destroy() {
     }
-
-    protected fun getAndroidComponent() = component
 }

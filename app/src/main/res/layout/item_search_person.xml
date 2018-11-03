@@ -33,11 +33,11 @@
             android:layout_height="66dp"
             android:adjustViewBounds="true"
             app:actualImageScaleType="centerCrop"
-            app:failureImage="@drawable/ic_cloud_off_black_24dp"
+            app:failureImage="@drawable/ic_cloud_off_black_36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholderImage="@drawable/ic_person_black_24dp"
+            app:placeholderImage="@drawable/ic_person_black_36dp"
             app:roundedCornerRadius="30dp"
             tools:placeholderImage="@tools:sample/avatars" />
 

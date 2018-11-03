@@ -2,23 +2,24 @@ package sbis.helpers.arch.base
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import sbis.helpers.arch.contracts.AndroidComponent
 import sbis.helpers.arch.PresenterStorage
+import sbis.helpers.arch.contracts.AndroidComponent
 import sbis.helpers.arch.contracts.MvpPresenter
 import sbis.helpers.arch.contracts.MvpViewModel
 
 abstract class BaseActivity<PRESENTER : MvpPresenter<VIEW_MODEL>, VIEW_MODEL : MvpViewModel>
     : AppCompatActivity(), AndroidComponent {
 
-    companion object {
-        const val VM_KEY = "VM_KEY"
-    }
-
     lateinit var presenter: PRESENTER
     lateinit var viewModel: VIEW_MODEL
+
+    override val activity: Activity
+        get() = this@BaseActivity
+
+    override val fragmentManager: FragmentManager
+        get() = supportFragmentManager
 
     abstract fun createPresenter(): PRESENTER
     abstract fun createViewModel(): VIEW_MODEL
@@ -52,7 +53,7 @@ abstract class BaseActivity<PRESENTER : MvpPresenter<VIEW_MODEL>, VIEW_MODEL : M
             detachView()
 
             if (!isChangingConfigurations) destroy()
-            else PresenterStorage.instance.save(viewModel.id, this)
+            else PresenterStorage.instance.save(vm.id, this)
         }
 
         super.onStop()
@@ -62,16 +63,6 @@ abstract class BaseActivity<PRESENTER : MvpPresenter<VIEW_MODEL>, VIEW_MODEL : M
         if (!isChangingConfigurations) presenter.destroy()
         super.onDestroy()
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable(VM_KEY, viewModel as Parcelable)
-
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun getComponentActivity(): Activity = this
-
-    override fun getComponentFragmentManager(): FragmentManager = supportFragmentManager
 
     private fun attachView() {
         with(presenter) {

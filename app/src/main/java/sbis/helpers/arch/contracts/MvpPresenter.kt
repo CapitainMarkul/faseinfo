@@ -7,7 +7,7 @@ interface MvpPresenter<VM : MvpViewModel> {
 
     fun isAttachedView() : Boolean
 
-    var viewModel : VM
+    var vm : VM
 
     fun destroy()
 }
