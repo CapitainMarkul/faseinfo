@@ -14,7 +14,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:background="#242F3E">
+        android:background="@color/colorPrimary">
 
         <!--<ImageView-->
         <!--android:id="@+id/user_photo"-->
@@ -48,7 +48,7 @@
             android:layout_marginStart="12dp"
             android:gravity="center_vertical"
             android:lines="1"
-            android:textColor="#E1F2F4"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:text='@{viewModel.secondName + " " + viewModel.name}'
             app:layout_constraintBottom_toTopOf="@+id/txt_user_post"
@@ -64,7 +64,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
             android:gravity="center_vertical"
-            android:textColor="#606A76"
+            android:textColor="@color/colorGray1"
             android:textSize="14sp"
             android:text='@{viewModel.postName}'
             app:layout_constraintBottom_toBottomOf="parent"
