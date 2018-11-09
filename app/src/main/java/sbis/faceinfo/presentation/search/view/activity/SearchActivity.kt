@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
 import sbis.data.model.PersonSearch
+import sbis.faceinfo.BR
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivitySearchBinding
 import sbis.faceinfo.presentation.search.contracts.SearchPresenterContract
@@ -40,12 +41,13 @@ class SearchActivity : BaseActivity<SearchPresenterContract, SearchViewModelCont
     private lateinit var searchPersonAdapter: SearchPersonAdapter
 
     override fun createPresenter(): SearchPresenterContract =
-            SearchPresenter(
-                    SearchInteractor(App.get().getNetworkService()),
-                    SearchRouter())
+        SearchPresenter(
+            SearchInteractor(App.get().getNetworkService()),
+            SearchRouter()
+        )
 
     override fun createViewModel(): SearchViewModelContract =
-            ViewModelProviders.of(this).get(SearchViewModel::class.java)
+        ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
     private val searchPersonListener = object : SearchPersonAdapter.OnPersonClickListener {
         override fun onClick(person: PersonSearch) {
@@ -75,11 +77,13 @@ class SearchActivity : BaseActivity<SearchPresenterContract, SearchViewModelCont
         val searchStartCount = 4
         binding.etxtSearchRequest.let { it ->
             RxTextView.afterTextChangeEvents(it).debounce(300, TimeUnit.MILLISECONDS)
-                    .filter { _ -> it.text.toString().length > searchStartCount }
-                    .map<String> { _ -> it.text.toString() }
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { searchRequest -> presenter.updateSearchRequest(searchRequest) }
+                .filter { _ -> it.text.toString().length > searchStartCount }
+                .map<String> { _ -> it.text.toString() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { searchRequest -> presenter.updateSearchRequest(searchRequest) }
         }
+
+        binding.btnClear.setOnClickListener { binding.etxtSearchRequest.setText("") }
     }
 
     override fun createSubscribers() {

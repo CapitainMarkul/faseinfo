@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -46,6 +46,9 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:1.1.1"
     //arcView
     implementation 'com.github.imaNNeoFighT:ArcChartView:1.0.3.1'
+
+    kapt "com.android.databinding:compiler:$compilerVersion"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

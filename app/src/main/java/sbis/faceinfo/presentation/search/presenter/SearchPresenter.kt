@@ -26,6 +26,6 @@ class SearchPresenter(
     }
 
     override fun onPersonSelected(person: PersonSearch) {
-        router.showDetailInfo(androidComponent!!, person.id)
+        router.showDetailInfo(androidComponent!!, person.id, person)
     }
 }
