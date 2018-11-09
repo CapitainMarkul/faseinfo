@@ -1,7 +1,6 @@
 package sbis.faceinfo.presentation.search.view.adapter
 
 import android.databinding.DataBindingUtil
-import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
