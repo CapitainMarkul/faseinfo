@@ -1,4 +1,10 @@
 package sbis.helpers.arch.contracts
 
-interface MvpInteractor {
+interface MvpInteractor<L : MvpInteractor.Listener> {
+
+    var listener: L
+
+    interface Listener
+
+    fun destroy()
 }
