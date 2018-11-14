@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="sbis.faceinfo">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="sbis.faceinfo">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:name="sbis.App"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:name="sbis.App"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".presentation.welcome.SplashActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".presentation.search.view.activity.SearchActivity">
+        <activity android:name=".presentation.welcome.SplashActivity"
+                  android:noHistory="true"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/SplashTheme"
+                  android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.detailinfo.view.activity.DetailInfoActivity"/>
+
+        <activity android:name=".presentation.search.view.activity.SearchActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".presentation.detailinfo.view.activity.DetailInfoActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 
