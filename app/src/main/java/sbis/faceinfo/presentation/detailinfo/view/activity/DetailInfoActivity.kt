@@ -5,19 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import sbis.faceinfo.R
+import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.view.animation.AlphaAnimation
 import sbis.data.model.PersonSearch
+import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivityDetailInfoBinding
 import sbis.faceinfo.presentation.search.view.loadImgFromAsserts
 import java.util.*
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.support.design.widget.AppBarLayout
-import android.view.View
-import android.view.animation.AlphaAnimation
 
 
 class DetailInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
@@ -56,17 +52,6 @@ class DetailInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedList
         binding.appBar.addOnOffsetChangedListener(this)
         startAlphaAnimation(binding.txtUserName, 0, View.INVISIBLE)
 
-
-        binding.personStatistics.setSectionIcons(
-            mutableListOf(
-                drawableToBitmap(resources.getDrawable(R.drawable.ic_launcher_background)),
-                drawableToBitmap(resources.getDrawable(R.drawable.ic_cloud_off_black_36dp))
-            )
-        )
-
-        binding.personStatistics.setSectionValue(FIRST_SECTION, 4)
-        binding.personStatistics.setSectionValue(SECOND_SECTION, 9)
-
         val user = intent.extras.getParcelable<PersonSearch>(ARG_USER_TEMP)
 
         //todo: перевести в dataBinding
@@ -74,31 +59,6 @@ class DetailInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedList
         binding.txtUserNameTitle.text = "${user.secondName} ${user.name}"
         binding.imgUserProfile.setImageDrawable(loadImgFromAsserts(user.photoUrl))
 
-    }
-
-    fun drawableToBitmap(drawable: Drawable): Bitmap? {
-        var bitmap: Bitmap? = null
-
-        if (drawable is BitmapDrawable) {
-            if (drawable.bitmap != null) {
-                return drawable.bitmap
-            }
-        }
-
-        if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
-            bitmap = Bitmap.createBitmap(
-                1,
-                1,
-                Bitmap.Config.ARGB_8888
-            ) // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        }
-
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
-        drawable.draw(canvas)
-        return bitmap
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
