@@ -10,21 +10,19 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
 import sbis.data.model.PersonSearch
-import sbis.faceinfo.BR
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivitySearchBinding
-import sbis.faceinfo.presentation.search.contracts.SearchPresenterContract
-import sbis.faceinfo.presentation.search.contracts.SearchViewModelContract
-import sbis.faceinfo.presentation.search.view.adapter.SearchPersonAdapter
+import sbis.faceinfo.presentation.search.contracts.SearchVmContract
 import sbis.faceinfo.presentation.search.interactor.SearchInteractor
 import sbis.faceinfo.presentation.search.presenter.SearchPresenter
 import sbis.faceinfo.presentation.search.router.SearchRouter
+import sbis.faceinfo.presentation.search.view.adapter.SearchPersonAdapter
 import sbis.faceinfo.presentation.search.viewModel.SearchViewModel
 import sbis.helpers.arch.base.BaseActivity
 import sbis.helpers.view.ItemListDecorator
 import java.util.concurrent.TimeUnit
 
-class SearchActivity : BaseActivity<SearchPresenterContract, SearchViewModelContract>() {
+class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract.ViewModel>() {
 
     //    companion object {
     //        fun createIntent(context: Context, hall: Hall, table: Table, guestList: List<GuestNewModel>?, warehouseId: UUID, showWaiterPhoto: Boolean): Intent =
@@ -40,13 +38,13 @@ class SearchActivity : BaseActivity<SearchPresenterContract, SearchViewModelCont
     private lateinit var binding: ActivitySearchBinding
     private lateinit var searchPersonAdapter: SearchPersonAdapter
 
-    override fun createPresenter(): SearchPresenterContract =
+    override fun createPresenter(): SearchVmContract.Presenter =
         SearchPresenter(
             SearchInteractor(App.get().getNetworkService()),
             SearchRouter()
         )
 
-    override fun createViewModel(): SearchViewModelContract =
+    override fun createViewModel(): SearchVmContract.ViewModel =
         ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
     private val searchPersonListener = object : SearchPersonAdapter.OnPersonClickListener {

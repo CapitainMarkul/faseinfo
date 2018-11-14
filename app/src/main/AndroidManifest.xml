@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.detailinfo.DetailInfoActivity"/>
+        <activity android:name=".presentation.detailinfo.view.activity.DetailInfoActivity"/>
 
     </application>
 

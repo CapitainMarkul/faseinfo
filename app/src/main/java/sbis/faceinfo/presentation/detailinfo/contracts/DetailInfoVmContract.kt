@@ -1,28 +1,23 @@
-package sbis.faceinfo.presentation.search.contracts
+package sbis.faceinfo.presentation.detailinfo.contracts
 
 import android.arch.lifecycle.MutableLiveData
-import sbis.data.model.PersonSearch
 import sbis.helpers.arch.contracts.MvpPresenter
 import sbis.helpers.arch.contracts.MvpViewModel
+import java.util.*
 
-interface SearchViewModelContract {
+interface DetailInfoVmContract {
 
     interface ViewModel : MvpViewModel {
-
         enum class State {
             INITIAL, LOADING, DATA, ERROR
         }
 
         var state: MutableLiveData<State>
 
-        var searchRequest: MutableLiveData<String>
-
-        var searchPersons: MutableLiveData<List<PersonSearch>>
+        val userId: UUID
     }
 
     interface Presenter : MvpPresenter<ViewModel> {
-        fun updateSearchRequest(searchRequest: String)
 
-        fun onPersonSelected(person: PersonSearch)
     }
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="sbis.faceinfo.presentation.search.contracts.SearchViewModelContract" />
+            type="sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel" />
 
     </data>
 

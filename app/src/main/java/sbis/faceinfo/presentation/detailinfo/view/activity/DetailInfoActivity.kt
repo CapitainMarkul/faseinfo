@@ -1,4 +1,4 @@
-package sbis.faceinfo.presentation.detailinfo
+package sbis.faceinfo.presentation.detailinfo.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
