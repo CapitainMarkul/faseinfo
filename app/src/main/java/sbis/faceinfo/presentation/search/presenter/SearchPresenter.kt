@@ -1,6 +1,6 @@
 package sbis.faceinfo.presentation.search.presenter
 
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.presentation.search.contracts.SearchInteractorContract
 import sbis.faceinfo.presentation.search.contracts.SearchRouterContract
 import sbis.faceinfo.presentation.search.contracts.SearchVmContract

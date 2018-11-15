@@ -1,9 +1,7 @@
 package sbis.domain.network.service
 
-import sbis.data.model.PersonFullInfo
-import sbis.data.model.PersonSearch
-import sbis.domain.network.command.SearchPersonCommand
-import java.util.*
+import sbis.data.model.presentation.PersonSearch
+import sbis.domain.network.command.rpc.SearchPersonCommand
 
 class NetworkServiceImpl : NetworkService {
 

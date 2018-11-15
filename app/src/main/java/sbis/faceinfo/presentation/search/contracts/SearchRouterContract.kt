@@ -1,6 +1,6 @@
 package sbis.faceinfo.presentation.search.contracts
 
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.helpers.arch.contracts.AndroidComponent
 import sbis.helpers.arch.contracts.MvpRouter
 import java.util.*

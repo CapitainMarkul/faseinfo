@@ -1,7 +1,7 @@
 package sbis.faceinfo.presentation.search.contracts
 
 import android.arch.lifecycle.MutableLiveData
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.helpers.arch.contracts.MvpPresenter
 import sbis.helpers.arch.contracts.MvpViewModel
 

@@ -9,7 +9,7 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.animation.AlphaAnimation
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivityDetailInfoBinding
 import sbis.faceinfo.presentation.search.view.loadImgFromAsserts

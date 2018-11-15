@@ -1,6 +1,6 @@
 package sbis.faceinfo.presentation.search.interactor
 
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.domain.network.service.NetworkService
 import sbis.faceinfo.presentation.search.contracts.SearchInteractorContract
 import sbis.helpers.arch.base.BaseInteractor

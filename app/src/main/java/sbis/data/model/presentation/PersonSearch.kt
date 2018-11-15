@@ -1,4 +1,4 @@
-package sbis.data.model
+package sbis.data.model.presentation
 
 import android.os.Parcel
 import sbis.helpers.arch.parcelable.KParcelable

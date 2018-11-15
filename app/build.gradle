@@ -49,6 +49,12 @@ dependencies {
     //customView
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
+    //okHttp client
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     kapt "com.android.databinding:compiler:$compilerVersion"
 
     testImplementation 'junit:junit:4.12'

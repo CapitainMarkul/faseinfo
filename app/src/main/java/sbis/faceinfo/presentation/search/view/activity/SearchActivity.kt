@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivitySearchBinding
 import sbis.faceinfo.presentation.search.contracts.SearchVmContract

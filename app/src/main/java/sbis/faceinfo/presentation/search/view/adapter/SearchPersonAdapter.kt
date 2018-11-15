@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import sbis.helpers.view.BaseAdapter
-import sbis.data.model.PersonSearch
+import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ItemSearchPersonBinding
 import sbis.faceinfo.presentation.search.view.loadPhoto
