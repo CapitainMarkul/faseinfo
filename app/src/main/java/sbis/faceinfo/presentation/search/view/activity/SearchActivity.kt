@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
@@ -14,7 +13,6 @@ import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivitySearchBinding
 import sbis.faceinfo.presentation.search.contracts.SearchVmContract
-import sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel.State
 import sbis.faceinfo.presentation.search.interactor.SearchInteractor
 import sbis.faceinfo.presentation.search.presenter.SearchPresenter
 import sbis.faceinfo.presentation.search.router.SearchRouter
@@ -59,6 +57,7 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
+        binding.setLifecycleOwner(this@SearchActivity)
         binding.viewModel = viewModel
 
         searchPersonAdapter = SearchPersonAdapter(searchPersonListener).apply {
@@ -93,13 +92,6 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
     override fun createSubscribers() {
         viewModel.searchPersons.observe(this@SearchActivity, Observer { items ->
             items?.let { searchPersonAdapter.setItems(it) }
-        })
-
-        viewModel.state.observe(this@SearchActivity, Observer { state ->
-            val progressBarVisibility = state == State.LOADING
-
-            binding.progressBar.visibility = if (progressBarVisibility) View.VISIBLE else View.INVISIBLE
-            binding.rvSearchResult.visibility = if (!progressBarVisibility) View.VISIBLE else View.INVISIBLE
         })
     }
 }

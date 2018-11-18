@@ -5,6 +5,12 @@
 
     <data>
 
+        <import
+            type="android.view.View" />
+
+        <import
+            type="sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel.State" />
+
         <variable
             name="viewModel"
             type="sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel" />
@@ -67,6 +73,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="4"
+            android:visibility="@{viewModel.state != State.LOADING ? View.VISIBLE : View.INVISIBLE}"
             tools:listitem="@layout/item_search_person" />
 
         <ProgressBar
@@ -74,6 +81,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
+            android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}"
             android:layout_marginTop="?attr/actionBarSize" />
 
     </android.support.design.widget.CoordinatorLayout>
