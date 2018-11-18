@@ -1,5 +1,8 @@
 package sbis.domain.network.command.rpc.common
 
-interface RpcCommand<T> {
-    fun execute() : T
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+
+interface RpcCommand {
+    fun execute(okHttpClient: OkHttpClient, callBack: Callback)
 }

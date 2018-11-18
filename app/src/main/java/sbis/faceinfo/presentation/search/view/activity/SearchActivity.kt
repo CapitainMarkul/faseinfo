@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
@@ -13,6 +14,7 @@ import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivitySearchBinding
 import sbis.faceinfo.presentation.search.contracts.SearchVmContract
+import sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel.State
 import sbis.faceinfo.presentation.search.interactor.SearchInteractor
 import sbis.faceinfo.presentation.search.presenter.SearchPresenter
 import sbis.faceinfo.presentation.search.router.SearchRouter
@@ -75,18 +77,29 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
         val searchStartCount = 4
         binding.etxtSearchRequest.let { it ->
             RxTextView.afterTextChangeEvents(it).debounce(300, TimeUnit.MILLISECONDS)
-                .filter { _ -> it.text.toString().length > searchStartCount }
                 .map<String> { _ -> it.text.toString() }
+                .filter { searchText -> searchText.length > searchStartCount }
+                .filter { searchText -> searchText != viewModel.searchRequest.value }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { searchRequest -> presenter.updateSearchRequest(searchRequest) }
         }
 
-        binding.btnClear.setOnClickListener { binding.etxtSearchRequest.setText("") }
+        binding.btnClear.setOnClickListener {
+            binding.etxtSearchRequest.setText("")
+            viewModel.searchPersons.value = emptyList()
+        }
     }
 
     override fun createSubscribers() {
         viewModel.searchPersons.observe(this@SearchActivity, Observer { items ->
             items?.let { searchPersonAdapter.setItems(it) }
+        })
+
+        viewModel.state.observe(this@SearchActivity, Observer { state ->
+            val progressBarVisibility = state == State.LOADING
+
+            binding.progressBar.visibility = if (progressBarVisibility) View.VISIBLE else View.INVISIBLE
+            binding.rvSearchResult.visibility = if (!progressBarVisibility) View.VISIBLE else View.INVISIBLE
         })
     }
 }

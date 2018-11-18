@@ -13,7 +13,6 @@ import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivityDetailInfoBinding
 import sbis.faceinfo.presentation.search.view.loadImgFromAsserts
-import java.util.*
 
 
 class DetailInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
@@ -30,7 +29,7 @@ class DetailInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedList
         //todo: преобразовать в Enum
         private const val FIRST_SECTION = 0
         private const val SECOND_SECTION = 1
-        fun createIntent(context: Context, userId: UUID, tempUser: PersonSearch): Intent =
+        fun createIntent(context: Context, userId: String, tempUser: PersonSearch): Intent =
             Intent(context, DetailInfoActivity::class.java).apply {
                 putExtra(ARG_USER_ID, userId)
                 putExtra(ARG_USER_TEMP, tempUser)

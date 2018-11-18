@@ -2,6 +2,7 @@ package sbis
 
 import android.app.Application
 import com.facebook.drawee.backends.pipeline.Fresco
+import okhttp3.OkHttpClient
 import sbis.domain.network.service.NetworkService
 import sbis.domain.network.service.NetworkServiceImpl
 
@@ -12,6 +13,8 @@ class App : Application() {
         fun get() = instance
     }
 
+    private val okHttpClient = OkHttpClient()
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -19,5 +22,5 @@ class App : Application() {
         Fresco.initialize(this)
     }
 
-    fun getNetworkService(): NetworkService = NetworkServiceImpl()
+    fun getNetworkService(): NetworkService = NetworkServiceImpl(okHttpClient)
 }

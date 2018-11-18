@@ -14,6 +14,9 @@ fun PersonSearchGson.transformToPresentation() =
         photoUrl = photoUrl
     )
 
+fun List<PersonSearchGson>.transformToPresentationList() =
+        map { it.transformToPresentation() }
+
 fun PersonFullInfoGson.transformToPresentation() =
     PersonFullInfo(
         id = id,

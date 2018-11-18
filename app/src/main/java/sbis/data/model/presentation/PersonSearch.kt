@@ -2,10 +2,9 @@ package sbis.data.model.presentation
 
 import android.os.Parcel
 import sbis.helpers.arch.parcelable.KParcelable
-import java.util.*
 
 data class PersonSearch(
-    val id: UUID,
+    val id: String,
     val name: String,
     val secondName: String,
     val postName: String,
@@ -18,7 +17,7 @@ data class PersonSearch(
     }
 
     private constructor(p: Parcel) : this(
-        id = p.readSerializable() as UUID,
+        id = p.readString(),
         name = p.readString(),
         secondName = p.readString(),
         postName = p.readString(),
@@ -26,7 +25,7 @@ data class PersonSearch(
     )
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeSerializable(id)
+        writeString(id)
         writeString(name)
         writeString(secondName)
         writeString(postName)

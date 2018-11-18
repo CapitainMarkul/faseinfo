@@ -1,9 +1,9 @@
 package sbis.domain.network.service
 
-import sbis.data.model.presentation.PersonSearch
+import okhttp3.Callback
 
 interface NetworkService {
-    fun searchPersons(searchRequest: String): List<PersonSearch>
+    fun searchPersons(searchRequest: String, responseCallBack: Callback)
 
 //    fun getPersonFullInfo(personId: UUID): PersonFullInfo
 }
