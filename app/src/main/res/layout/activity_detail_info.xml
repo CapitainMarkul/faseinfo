@@ -101,6 +101,12 @@
                     android:textSize="24sp"
                     app:layout_collapseMode="pin" />
 
+                <com.github.florent37.androidslidr.Slidr
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    app:slidr_regions_centerText="false"
+                    app:slidr_region_leftColor="#4CAF50" />
+
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
