@@ -1,9 +1,9 @@
 package sbis.faceinfo.presentation.detailinfo.contracts
 
 import android.arch.lifecycle.MutableLiveData
+import sbis.data.model.presentation.PersonFullInfo
 import sbis.helpers.arch.contracts.MvpPresenter
 import sbis.helpers.arch.contracts.MvpViewModel
-import java.util.*
 
 interface DetailInfoVmContract {
 
@@ -14,7 +14,8 @@ interface DetailInfoVmContract {
 
         var state: MutableLiveData<State>
 
-        val userId: UUID
+        val userId: String
+        val user: MutableLiveData<PersonFullInfo?>
     }
 
     interface Presenter : MvpPresenter<ViewModel> {

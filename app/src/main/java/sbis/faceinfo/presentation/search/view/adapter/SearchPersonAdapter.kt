@@ -4,11 +4,11 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import sbis.helpers.view.BaseAdapter
 import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ItemSearchPersonBinding
 import sbis.faceinfo.presentation.search.view.loadPhoto
+import sbis.helpers.view.BaseAdapter
 
 class SearchPersonAdapter(val listener: OnPersonClickListener) :
     BaseAdapter<SearchPersonAdapter.ViewHolder, PersonSearch>() {
@@ -31,8 +31,6 @@ class SearchPersonAdapter(val listener: OnPersonClickListener) :
         holder.bindView.userPhoto.loadPhoto(person.photoUrl)
         holder.bindView.root.setOnClickListener { listener.onClick(person) }
     }
-
-    override fun getItemCount() = itemList.size
 
     class ViewHolder(var bindView: ItemSearchPersonBinding) : RecyclerView.ViewHolder(bindView.root) {
 

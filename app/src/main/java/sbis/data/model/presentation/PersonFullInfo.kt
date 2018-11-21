@@ -5,10 +5,13 @@ import sbis.helpers.arch.parcelable.KParcelable
 import java.util.*
 
 data class PersonFullInfo(
-    val id: UUID,
+    val id: String,
     val name: String,
-    val secondName: String
+    val secondName: String,
+    val params: List<ItemParam>
 ) : KParcelable {
+
+    val fullName = "$secondName $name"
 
     companion object {
         @JvmField
@@ -16,14 +19,16 @@ data class PersonFullInfo(
     }
 
     private constructor(p: Parcel) : this(
-        id = p.readSerializable() as UUID,
+        id = p.readString(),
         name = p.readString(),
-        secondName = p.readString()
+        secondName = p.readString(),
+        params = p.createTypedArrayList(ItemParam.CREATOR)
     )
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeSerializable(id)
+        writeString(id)
         writeString(name)
         writeString(secondName)
+        writeTypedList(params)
     }
 }

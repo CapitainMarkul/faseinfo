@@ -1,5 +1,6 @@
 package sbis.faceinfo.presentation.detailinfo.presenter
 
+import sbis.data.model.presentation.PersonFullInfo
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoInteractorContract
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoRouterContract
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract
@@ -16,11 +17,16 @@ class DetailInfoPresenter(
 
     override fun attachView(viewModel: DetailInfoVmContract.ViewModel, component: AndroidComponent) {
         super.attachView(viewModel, component)
+        interactor.listener = this
 
         interactor.obtainUserFullInfo(viewModel.userId)
     }
 
     override fun detachView() {
         super.detachView()
+    }
+
+    override fun obtainedUserFulInfo(user: PersonFullInfo, error: Throwable?) {
+        vm.user.value = user
     }
 }

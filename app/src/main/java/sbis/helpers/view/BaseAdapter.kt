@@ -6,8 +6,10 @@ abstract class BaseAdapter<T : RecyclerView.ViewHolder, MODEL_TYPE> : RecyclerVi
 
     protected var itemList = listOf<MODEL_TYPE>()
 
-    fun setItems(items: List<MODEL_TYPE>) {
-        itemList = items
+    fun setItems(items: List<MODEL_TYPE>?) {
+        itemList = items ?: emptyList()
         notifyDataSetChanged()
     }
+
+    override fun getItemCount() = itemList.size
 }

@@ -1,15 +1,15 @@
 package sbis.faceinfo.presentation.detailinfo.contracts
 
+import sbis.data.model.presentation.PersonFullInfo
 import sbis.helpers.arch.contracts.MvpInteractor
-import java.util.*
 
 interface DetailInfoInteractorContract {
 
     interface Presenter : MvpInteractor.Listener {
-
+        fun obtainedUserFulInfo(user: PersonFullInfo, error: Throwable?)
     }
 
     interface Interactor : MvpInteractor<Presenter> {
-        fun obtainUserFullInfo(userId: UUID)
+        fun obtainUserFullInfo(userId: String)
     }
 }

@@ -1,10 +1,11 @@
 package sbis.data.model.gson
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
+import sbis.data.model.presentation.ItemParam
 
 data class PersonFullInfoGson(
-    @SerializedName("userId") val id: UUID,
+    @SerializedName("userId") val id: String,
     @SerializedName("name") val name: String,
-    @SerializedName("secondName") val secondName: String
+    @SerializedName("secondName") val secondName: String,
+    @SerializedName("params") val params: List<ItemParam> /* FIXME: ItemParam -> ItemParamGson */
 )

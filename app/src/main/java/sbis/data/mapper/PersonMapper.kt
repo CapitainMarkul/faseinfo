@@ -15,11 +15,12 @@ fun PersonSearchGson.transformToPresentation() =
     )
 
 fun List<PersonSearchGson>.transformToPresentationList() =
-        map { it.transformToPresentation() }
+    map { it.transformToPresentation() }
 
 fun PersonFullInfoGson.transformToPresentation() =
     PersonFullInfo(
         id = id,
         name = name,
-        secondName = secondName
+        secondName = secondName,
+        params = params
     )
