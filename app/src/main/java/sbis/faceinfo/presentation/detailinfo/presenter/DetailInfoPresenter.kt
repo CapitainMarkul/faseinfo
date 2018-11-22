@@ -26,7 +26,7 @@ class DetailInfoPresenter(
         super.detachView()
     }
 
-    override fun obtainedUserFulInfo(user: PersonFullInfo, error: Throwable?) {
+    override fun obtainedUserFulInfo(user: PersonFullInfo?, error: Throwable?) {
         vm.user.value = user
     }
 }

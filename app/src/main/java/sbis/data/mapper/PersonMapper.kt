@@ -1,7 +1,9 @@
 package sbis.data.mapper
 
+import sbis.data.model.gson.ItemParamGson
 import sbis.data.model.gson.PersonFullInfoGson
 import sbis.data.model.gson.PersonSearchGson
+import sbis.data.model.presentation.ItemParam
 import sbis.data.model.presentation.PersonFullInfo
 import sbis.data.model.presentation.PersonSearch
 
@@ -22,5 +24,14 @@ fun PersonFullInfoGson.transformToPresentation() =
         id = id,
         name = name,
         secondName = secondName,
-        params = params
+        params = params.transformToPresentationItemParamList()
     )
+
+fun ItemParamGson.transformToPresentation() =
+    ItemParam(
+        title = title,
+        value = value
+    )
+
+fun List<ItemParamGson>.transformToPresentationItemParamList() =
+    map { it.transformToPresentation() }
