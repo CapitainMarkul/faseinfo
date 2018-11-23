@@ -16,16 +16,15 @@ import sbis.faceinfo.R;
  * Created by florentchampigny on 20/04/2017.
  */
 
+/*FIXME: Переписать эту чепуху*/
 public class Sushi extends FrameLayout {
 
     private static final float DISTANCE_TEXT_BAR = 35;
     private static final float BUBBLE_PADDING_HORIZONTAL = 15;
-    private static final float BUBBLE_PADDING_VERTICAL = 3;
-    private static final float BUBBLE_MIN_WITH = 0;
 
     private Settings settings;
 
-    private float max = 1000;
+    private float max = 100;
     private float min = 0;
     private float currentValue = 0;
 
@@ -33,8 +32,7 @@ public class Sushi extends FrameLayout {
     private float barWidth;
     private float indicatorX;
     private float barCenterY;
-    private Bubble bubble = new Bubble();
-    private TextFormatter textFormatter = new EurosTextFormatter();
+    private TextFormatter textFormatter = new CustomTextFormatter();
     private RegionTextFormatter regionTextFormatter = null;
 
     private int calculatedHieght = 0;
@@ -102,8 +100,6 @@ public class Sushi extends FrameLayout {
         if (barWidth > 0f) {
             float currentPercent = indicatorX / barWidth;
             currentValue = currentPercent * (max - min) + min;
-
-            updateBubbleWidth();
         }
         postInvalidate();
     }
@@ -121,11 +117,6 @@ public class Sushi extends FrameLayout {
                 MeasureSpec.makeMeasureSpec(calculatedHieght, MeasureSpec.EXACTLY));
     }
 
-    private void updateBubbleWidth() {
-        this.bubble.width = calculateBubbleTextWidth() + BUBBLE_PADDING_HORIZONTAL * 2f;
-        this.bubble.width = Math.max(BUBBLE_MIN_WITH, this.bubble.width);
-    }
-
     private void updateValues() {
 
         if (currentValue < min) {
@@ -136,12 +127,9 @@ public class Sushi extends FrameLayout {
 
         barWidth = getWidth() - this.settings.paddingCorners * 2;
 
-        updateBubbleWidth();
-        this.bubble.height = dpToPx(settings.textSizeBubble) + BUBBLE_PADDING_VERTICAL * 2f;
-
         this.barY = 0;
 
-        if(settings.displayMinMax) {
+        if (settings.displayMinMax) {
             barY += DISTANCE_TEXT_BAR;
             float topTextHeight = 0;
             final String tmpTextLeft = formatRegionValue(0, 0);
@@ -156,14 +144,11 @@ public class Sushi extends FrameLayout {
 
         this.barCenterY = barY + settings.barHeight / 2f;
 
-        this.bubble.y = barCenterY - bubble.height / 2f;
-
         indicatorX = (currentValue - min) / (max - min) * barWidth;
 
         calculatedHieght = (int) (barCenterY + settings.barHeight);
 
-        calculatedHieght += 10; //padding bottom
-
+        calculatedHieght += (calculateBubbleTextHeight() /*/ 2f*/); //padding bottom
     }
 
     @Override
@@ -208,21 +193,20 @@ public class Sushi extends FrameLayout {
 
             //bubble
             {
-
                 float bubbleCenterX = indicatorCenterX;
                 float trangleCenterX;
 
-                bubble.x = bubbleCenterX - bubble.width / 2f;
-
-                if (bubbleCenterX > canvas.getWidth() - bubble.width / 2f) {
-                    bubbleCenterX = canvas.getWidth() - bubble.width / 2f;
-                } else if (bubbleCenterX - bubble.width / 2f < 0) {
-                    bubbleCenterX = bubble.width / 2f;
-                }
-
                 trangleCenterX = (bubbleCenterX + indicatorCenterX) / 2f;
 
-                drawBubble(canvas, bubbleCenterX, trangleCenterX, bubble.getY());
+                canvas.save();
+                canvas.translate(trangleCenterX - calculateBubbleTextWidth() + (BUBBLE_PADDING_HORIZONTAL / 2f),
+                        this.barCenterY);
+
+                final String bubbleText = formatValue(getCurrentValue());
+                drawText(canvas, bubbleText, BUBBLE_PADDING_HORIZONTAL, barCenterY, settings.paintTextBubble,
+                        Layout.Alignment.ALIGN_NORMAL);
+
+                canvas.restore();
             }
         }
 
@@ -249,37 +233,6 @@ public class Sushi extends FrameLayout {
             staticLayout.draw(canvas);
         }
         canvas.restore();
-    }
-
-    private void drawMultilineText(Canvas canvas, String text, float x, float y, TextPaint paint, Layout.Alignment aligment) {
-        final float lineHeight = paint.getTextSize();
-        float lineY = y;
-        for (CharSequence line : text.split("\n")) {
-            canvas.save();
-            {
-                final float lineWidth = (int) paint.measureText(line.toString());
-                float lineX = x;
-                if (aligment == Layout.Alignment.ALIGN_CENTER) {
-                    lineX -= lineWidth / 2f;
-                }
-                if (lineX < 0) {
-                    lineX = 0;
-                }
-
-                final float right = lineX + lineWidth;
-                if (right > canvas.getWidth()) {
-                    lineX = canvas.getWidth() - lineWidth - settings.paddingCorners;
-                }
-
-                canvas.translate(lineX, lineY);
-                final StaticLayout staticLayout = new StaticLayout(line, paint, (int) lineWidth, aligment, 1.0f, 0, false);
-                staticLayout.draw(canvas);
-
-                lineY += lineHeight;
-            }
-            canvas.restore();
-        }
-
     }
 
     private void drawIndicatorsTextAbove(Canvas canvas, String text, TextPaint paintText, float x, float y, Layout.Alignment alignment) {
@@ -316,54 +269,11 @@ public class Sushi extends FrameLayout {
         return settings.paintTextBubble.measureText(bubbleText);
     }
 
-    private void drawBubblePath(Canvas canvas, float triangleCenterX, float height, float width) {
-        final Path path = new Path();
-
-        int padding = 3;
-        final Rect rect = new Rect(padding, padding, (int) width - padding, (int) (height) - padding);
-
-        final float roundRectHeight = (height) / 2;
-
-        path.moveTo(rect.left + roundRectHeight, rect.top);
-        path.lineTo(rect.right - roundRectHeight, rect.top);
-        path.quadTo(rect.right, rect.top, rect.right, rect.top + roundRectHeight);
-        path.lineTo(rect.right, rect.bottom - roundRectHeight);
-        path.quadTo(rect.right, rect.bottom, rect.right - roundRectHeight, rect.bottom);
-
-        path.lineTo(triangleCenterX, height - padding);
-        path.lineTo(triangleCenterX, height - padding);
-        path.lineTo(triangleCenterX, height - padding);
-
-        path.lineTo(rect.left + roundRectHeight, rect.bottom);
-        path.quadTo(rect.left, rect.bottom, rect.left, rect.bottom - roundRectHeight);
-        path.lineTo(rect.left, rect.top + roundRectHeight);
-        path.quadTo(rect.left, rect.top, rect.left + roundRectHeight, rect.top);
-        path.close();
-
-        canvas.drawPath(path, settings.paintBubble);
-    }
-
-    private void drawBubble(Canvas canvas, float centerX, float triangleCenterX, float y) {
-        final float width = this.bubble.width;
-        final float height = this.bubble.height;
-
-        canvas.save();
-        {
-            canvas.translate(centerX - width / 2f, y);
-            triangleCenterX -= (centerX - width / 2f);
-
-            settings.paintBubble.setStyle(Paint.Style.FILL);
-            settings.paintBubble.setColor(settings.foregroundColor);
-            drawBubblePath(canvas, triangleCenterX, height, width);
-
-            settings.paintBubble.setStyle(Paint.Style.FILL);
-        }
-
-        final String bubbleText = formatValue(getCurrentValue());
-        drawText(canvas, bubbleText, BUBBLE_PADDING_HORIZONTAL, bubble.getHeight() / 2f - settings.paintTextBubble.getTextSize() / 2f - BUBBLE_PADDING_VERTICAL, settings.paintTextBubble, Layout.Alignment.ALIGN_NORMAL);
-
-        canvas.restore();
-
+    private float calculateBubbleTextHeight() {
+        String bubbleText = formatValue(getCurrentValue());
+        Rect bounds = new Rect();
+        settings.paintTextBubble.getTextBounds(bubbleText, 0, bubbleText.length(), bounds);
+        return bounds.height();
     }
 
     public void setTextFormatter(TextFormatter textFormatter) {
@@ -393,7 +303,7 @@ public class Sushi extends FrameLayout {
         private Paint paintBar;
         private TextPaint paintTextTop;
         private TextPaint paintTextBubble;
-        private Paint paintBubble;
+        //        private Paint paintBubble;
         private int colorBackground = Color.parseColor("#cccccc");
         private int textColor = Color.parseColor("#6E6E6E");
 
@@ -427,10 +337,6 @@ public class Sushi extends FrameLayout {
             paintTextBubble.setColor(Color.WHITE);
             paintTextBubble.setStrokeWidth(2);
             paintTextBubble.setTextSize(dpToPx(textSizeBubble));
-
-            paintBubble = new Paint();
-            paintBubble.setAntiAlias(true);
-            paintBubble.setStrokeWidth(3);
         }
 
         private void init(Context context, AttributeSet attrs) {
@@ -495,35 +401,11 @@ public class Sushi extends FrameLayout {
         }
     }
 
-    private class Bubble {
-        private float height;
-        private float width;
-        private float x;
-        private float y;
-
-        public boolean clicked(MotionEvent e) {
-            return e.getX() >= x && e.getX() <= x + width
-                    && e.getY() >= y && e.getY() < y + height;
-        }
-
-        public float getHeight() {
-            return height;
-        }
-
-        public float getX() {
-            return Math.max(x, 0);
-        }
-
-        public float getY() {
-            return Math.max(y, 0);
-        }
-    }
-
-    public class EurosTextFormatter implements TextFormatter {
+    public class CustomTextFormatter implements TextFormatter {
 
         @Override
         public String format(float value) {
-            return String.format("%d €", (int) value);
+            return String.format("%d", (int) value);
         }
     }
 }

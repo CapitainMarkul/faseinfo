@@ -40,5 +40,5 @@ class GetFullPersonInfoCommand(val personId: String) : RpcCommand {
     }
 
     private fun generateUserFullInfo() =
-        "{\"fullName\":\"Смирнов Петр\",\"id\":\"833f45f3-201e-4c5e-a626-2cc79f2896a1\",\"name\":\"Петр\",\"params\":[{\"title\":\"Коммуникабельность\",\"value\":69},{\"title\":\"Дружелюбие\",\"value\":80},{\"title\":\"Ответственность\",\"value\":45},{\"title\":\"Стресс\",\"value\":94},{\"title\":\"Вероятность увольнения\",\"value\":24}],\"secondName\":\"Смирнов\"}"
+        "{\"fullName\":\"Смирнов Петр\",\"id\":\"833f45f3-201e-4c5e-a626-2cc79f2896a1\",\"name\":\"Петр\",\"isSmoke\":\"true\",\"photoUrl\":\"https://picsum.photos/200/300\",\"params\":[{\"title\":\"Коммуникабельность\",\"value\":69},{\"title\":\"Дружелюбие\",\"value\":80},{\"title\":\"Ответственность\",\"value\":45},{\"title\":\"Стресс\",\"value\":94},{\"title\":\"Вероятность увольнения\",\"value\":24}],\"secondName\":\"Смирнов\"}"
 }

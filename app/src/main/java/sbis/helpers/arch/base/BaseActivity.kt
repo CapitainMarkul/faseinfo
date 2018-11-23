@@ -31,9 +31,9 @@ abstract class BaseActivity<PRESENTER : MvpPresenter<VIEW_MODEL>, VIEW_MODEL : M
         viewModel = createViewModel()
         createSubscribers()
 
-        presenter =
-                if (savedInstanceState == null) createPresenter()
-                else PresenterStorage.instance.evict(viewModel.id)
+        presenter = createPresenter()
+//                if (savedInstanceState == null) createPresenter()
+//                else PresenterStorage.instance.evict(viewModel.id)
 
         takeIf { presenter == null }?.apply { presenter = createPresenter() }
     }

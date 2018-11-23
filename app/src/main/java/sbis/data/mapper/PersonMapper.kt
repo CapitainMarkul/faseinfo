@@ -24,6 +24,8 @@ fun PersonFullInfoGson.transformToPresentation() =
         id = id,
         name = name,
         secondName = secondName,
+        isSmoke = isSmoke,
+        photoUrl = photoUrl,
         params = params.transformToPresentationItemParamList()
     )
 

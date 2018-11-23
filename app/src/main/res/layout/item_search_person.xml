@@ -14,21 +14,22 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="66dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:background="@color/colorPrimary">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_photo"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:adjustViewBounds="true"
-            app:actualImageScaleType="centerCrop"
-            app:failureImage="@drawable/ic_cloud_off_black_36dp"
+            user_photo="@{viewModel.photoUrl}"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            app:civ_border_color="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholderImage="@drawable/ic_person_black_36dp"
-            app:roundedCornerRadius="30dp"
-            tools:placeholderImage="@tools:sample/avatars" />
+            app:civ_border_width="1dp"
+            tools:src="@drawable/ic_launcher_foreground" />
 
         <TextView
             android:id="@+id/txt_user_name"

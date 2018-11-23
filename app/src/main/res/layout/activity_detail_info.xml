@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract.ViewModel.State" />
+
         <variable
             name="viewModel"
             type="sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract.ViewModel" />
@@ -14,6 +18,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="@color/colorPrimaryDark">
 
         <android.support.design.widget.AppBarLayout
@@ -94,31 +99,58 @@
             app:layout_anchor="@+id/title_custom"
             tools:background="@android:color/holo_green_light">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_final_height"
-                android:orientation="horizontal"
                 android:paddingStart="@dimen/custom_toolbar_padding_start"
                 tools:ignore="RtlSymmetry">
 
                 <TextView
                     android:id="@+id/txt_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    app:layout_constraintWidth_default="wrap"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@{viewModel.user.fullName}"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
+                    app:layout_goneMarginStart="0dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_end"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="Петров Семен" />
 
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_smoke"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    smoke_img="@{viewModel.user.isSmoke}"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txt_user_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_width="36dp"
+                    tools:layout_height="36dp"
+                    tools:background="@color/colorPrimaryDark" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline_end"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.85"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.Toolbar>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_user_profile"
+            user_photo="@{viewModel.user.photoUrl}"
             android:layout_width="@dimen/image_circle_start_size"
             android:layout_height="@dimen/image_circle_start_size"
             android:layout_gravity="center_horizontal"
@@ -127,6 +159,20 @@
             app:finalHeight="@dimen/image_circle_final_size"
             app:layout_behavior="sbis.helpers.view.behavior.AvatarImageBehavior"
             tools:src="@drawable/ic_launcher_foreground" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="@dimen/progress_bar_size"
+                android:layout_height="@dimen/progress_bar_size"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

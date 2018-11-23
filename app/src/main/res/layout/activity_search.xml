@@ -78,8 +78,8 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
             android:layout_gravity="center_horizontal"
             android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}"
             android:layout_marginTop="?attr/actionBarSize" />

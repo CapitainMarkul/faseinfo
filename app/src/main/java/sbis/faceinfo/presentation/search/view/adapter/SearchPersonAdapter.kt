@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ItemSearchPersonBinding
-import sbis.faceinfo.presentation.search.view.loadPhoto
 import sbis.helpers.view.BaseAdapter
 
 class SearchPersonAdapter(val listener: OnPersonClickListener) :
@@ -26,17 +25,17 @@ class SearchPersonAdapter(val listener: OnPersonClickListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val person = itemList[position]
-
-        holder.bind(person)
-        holder.bindView.userPhoto.loadPhoto(person.photoUrl)
         holder.bindView.root.setOnClickListener { listener.onClick(person) }
+        holder.bind(person)
     }
 
     class ViewHolder(var bindView: ItemSearchPersonBinding) : RecyclerView.ViewHolder(bindView.root) {
 
         fun bind(viewModel: PersonSearch) {
-            bindView.viewModel = viewModel
-            bindView.executePendingBindings()
+            with(bindView) {
+                this.viewModel = viewModel
+                executePendingBindings()
+            }
         }
     }
 }

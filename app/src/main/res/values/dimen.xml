@@ -13,4 +13,6 @@
 
     <dimen name="custom_toolbar_padding_start">60dp</dimen>
 
+    <dimen name="progress_bar_size">50dp</dimen>
+
 </resources>

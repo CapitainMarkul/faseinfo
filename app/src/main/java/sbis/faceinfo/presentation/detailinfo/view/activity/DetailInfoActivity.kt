@@ -23,7 +23,6 @@ import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModel
 import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModelFactory
 import sbis.helpers.arch.base.BaseActivity
 import sbis.helpers.view.ItemListDecorator
-import java.util.*
 
 
 class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailInfoVmContract.ViewModel>(),
@@ -65,10 +64,11 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this@DetailInfoActivity, R.layout.activity_detail_info)
+        binding.setLifecycleOwner(this@DetailInfoActivity)
         binding.viewModel = viewModel
 
         binding.appBar.addOnOffsetChangedListener(this)
-        startAlphaAnimation(binding.txtUserName, 0, View.INVISIBLE)
+        startAlphaAnimation(binding.toolbarUserName, 0, View.INVISIBLE)
 
         detailParamsAdapter = DetailParamsAdapter().apply {
             setItems(viewModel.user.value?.params ?: emptyList())
@@ -100,10 +100,10 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
 
     private fun handleToolbarTitleVisibility(percentage: Float) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR && !isTitleVisible) {
-            startAlphaAnimation(binding.txtUserName, ALPHA_ANIMATIONS_DURATION.toLong(), View.VISIBLE)
+            startAlphaAnimation(binding.toolbarUserName, ALPHA_ANIMATIONS_DURATION.toLong(), View.VISIBLE)
             isTitleVisible = true
         } else if (percentage < PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR && isTitleVisible) {
-            startAlphaAnimation(binding.txtUserName, ALPHA_ANIMATIONS_DURATION.toLong(), View.INVISIBLE)
+            startAlphaAnimation(binding.toolbarUserName, ALPHA_ANIMATIONS_DURATION.toLong(), View.INVISIBLE)
             isTitleVisible = false
         }
     }

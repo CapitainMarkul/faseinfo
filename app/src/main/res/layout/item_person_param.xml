@@ -13,9 +13,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
+        android:gravity="top"
         android:orientation="horizontal"
         android:padding="12dp"
         android:weightSum="1">
@@ -26,19 +26,23 @@
             android:layout_weight="0.4"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingTop="4dp"
             android:text="@{viewModel.title}"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             tools:text="Смиренность" />
 
-        <sbis.helpers.view.seekbar.Slidr
+        <sbis.helpers.view.seekbar.Sushi
             android:id="@+id/sb_param"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            app:slidr_edditable="false"
-            app:slidr_region_leftColor="#4CAF50"
-            app:slidr_regions_centerText="false" />
+            app:sushi_backgroundColor="@color/colorPrimaryDark"
+            app:sushi_barHeight="20dp"
+            app:sushi_bubbleTextSize="14dp"
+            app:sushi_displayMinMax="false"
+            app:sushi_foregroundColor="#4CAF50"
+            app:sushi_textSize="12dp" />
 
     </LinearLayout>
 
