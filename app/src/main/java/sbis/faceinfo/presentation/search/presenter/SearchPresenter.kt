@@ -32,7 +32,7 @@ class SearchPresenter(
             vm.searchPersons.value = persons
         } else {
             vm.state.value = State.ERROR
-            //todo: showErrorMessage
+            vm.errorMessage.value = error.localizedMessage
         }
     }
 
@@ -44,5 +44,9 @@ class SearchPresenter(
 
     override fun onPersonSelected(person: PersonSearch) {
         router.showDetailInfo(androidComponent!!, person.id)
+    }
+
+    override fun onSecretLongClick() {
+        router.showSettingScreen(androidComponent!!)
     }
 }

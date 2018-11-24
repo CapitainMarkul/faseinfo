@@ -1,4 +1,4 @@
-package sbis.domain.network.service
+package sbis.domain.network.service.network
 
 import okhttp3.Callback
 

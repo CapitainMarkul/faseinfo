@@ -2,29 +2,35 @@ package sbis.domain.network.command.rpc
 
 import android.os.Handler
 import okhttp3.*
+import sbis.App
+import sbis.domain.network.HttpProtocol
 import sbis.domain.network.command.rpc.common.RpcCommand
 import java.io.IOException
 
 class GetFullPersonInfoCommand(val personId: String) : RpcCommand {
 
     override fun execute(okHttpClient: OkHttpClient, callBack: Callback) {
-        val url = "http://json-gen.com/rest/service/get/5U9SJ0898HCDpakluunowQnYVMNwNP"
+        //TODO: "https://httpbin.org/get?website=www.journaldev.com&tutorials=android"
 
-//        val urlBuilder = HttpUrl.parse("https://httpbin.org/get")
-//            ?.newBuilder()?.apply {
-//                addQueryParameter("website", "www.journaldev.com")
-//                addQueryParameter("tutorials", "android")
-//            }
+        val url = HttpUrl.Builder()
+            .scheme(HttpProtocol.HTTPS.protocolName)
+            .host(App.get().getStorageService().getServerUrl())
+            .addPathSegment("get")
+            .addQueryParameter("website", "www.journaldev.com")
+            .addQueryParameter("tutorials", "android")
+            .build()
 
         val request = Request.Builder()
 //            .header("Authorisation", "YOUR_TOKEN")
-            .url(/*urlBuilder!!.build().toString() */url)
+            .url(url.toString())
             .build()
+
         val handler = Handler()
 
         //FIXME: remove this code...
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                callBack.onFailure(call, e)
 
             }
 

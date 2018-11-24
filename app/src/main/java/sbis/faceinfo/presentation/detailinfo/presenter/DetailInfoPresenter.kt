@@ -34,6 +34,9 @@ class DetailInfoPresenter(
         if (error == null) {
             vm.state.value = State.DATA
             vm.user.value = user
+        } else {
+            vm.state.value = State.ERROR
+            vm.errorMessage.value = error.localizedMessage
         }
     }
 }

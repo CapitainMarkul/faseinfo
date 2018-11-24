@@ -15,6 +15,8 @@ interface SearchVmContract {
 
         var state: MutableLiveData<State>
 
+        var errorMessage: MutableLiveData<String?>
+
         var searchRequest: MutableLiveData<String>
 
         var searchPersons: MutableLiveData<List<PersonSearch>>
@@ -24,5 +26,7 @@ interface SearchVmContract {
         fun updateSearchRequest(searchRequest: String)
 
         fun onPersonSelected(person: PersonSearch)
+
+        fun onSecretLongClick()
     }
 }

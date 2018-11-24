@@ -14,6 +14,8 @@ interface DetailInfoVmContract {
 
         var state: MutableLiveData<State>
 
+        var errorMessage: MutableLiveData<String?>
+
         val userId: String
         val user: MutableLiveData<PersonFullInfo?>
     }

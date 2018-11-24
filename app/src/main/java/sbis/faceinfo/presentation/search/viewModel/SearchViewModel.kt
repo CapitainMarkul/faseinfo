@@ -8,6 +8,7 @@ import sbis.helpers.arch.base.BaseViewModel
 
 class SearchViewModel() : BaseViewModel(), SearchVmContract.ViewModel {
     override var state = MutableLiveData<State>().apply { value = State.INITIAL }
+    override var errorMessage = MutableLiveData<String?>().apply { value = null }
     override var searchRequest = MutableLiveData<String>().apply { value = "" }
     override var searchPersons = MutableLiveData<List<PersonSearch>>().apply { value = emptyList() }
 }

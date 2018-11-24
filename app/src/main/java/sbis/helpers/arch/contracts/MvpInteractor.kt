@@ -5,6 +5,4 @@ interface MvpInteractor<L : MvpInteractor.Listener> {
     var listener: L?
 
     interface Listener
-
-    fun destroy()
 }

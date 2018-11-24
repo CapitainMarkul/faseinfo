@@ -88,6 +88,10 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         viewModel.user.observe(this@DetailInfoActivity, Observer {
             detailParamsAdapter.setItems(it?.params)
         })
+
+        viewModel.errorMessage.observe(this@DetailInfoActivity, Observer { errorMessage ->
+            errorMessage?.let { showErrorMessage(it) }
+        })
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {

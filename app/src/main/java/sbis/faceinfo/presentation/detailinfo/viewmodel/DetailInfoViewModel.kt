@@ -10,5 +10,6 @@ class DetailInfoViewModel(
     override val userId: String
 ) : BaseViewModel(), DetailInfoVmContract.ViewModel {
     override var state = MutableLiveData<State>().apply { value = State.INITIAL }
+    override var errorMessage = MutableLiveData<String?>().apply { value = null }
     override var user = MutableLiveData<PersonFullInfo?>().apply { value = null }
 }

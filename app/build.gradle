@@ -58,6 +58,11 @@ dependencies {
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
 
+    // Simple MaterialDialog
+    implementation ('com.afollestad.material-dialogs:core:0.9.5.0') {
+        exclude group: 'com.android.support'
+    }
+
     kapt "com.android.databinding:compiler:$compilerVersion"
 
     testImplementation 'junit:junit:4.12'

@@ -2,6 +2,8 @@ package sbis.faceinfo.presentation.search.view.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -24,16 +26,12 @@ import java.util.concurrent.TimeUnit
 
 class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract.ViewModel>() {
 
-    //    companion object {
-    //        fun createIntent(context: Context, hall: Hall, table: Table, guestList: List<GuestNewModel>?, warehouseId: UUID, showWaiterPhoto: Boolean): Intent =
-    //            Intent(context, OrderActivity::class.java).apply {
-    //                putExtra(ARG_HALL, hall)
-    //                putExtra(ARG_TABLE, table)
-    //                guestList?.let { putParcelableArrayListExtra(ARG_GUEST_LIST, ArrayList(it)) }
-    //                putExtra(ARG_WAREHOUSE_ID, warehouseId)
-    //                putExtra(ARG_SHOW_WAITER_PHOTO, showWaiterPhoto)
-    //            }
-    //    }
+    companion object {
+        fun createIntent(context: Context): Intent =
+            Intent(context, SearchActivity::class.java).apply {
+                /* put your args */
+            }
+    }
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var searchPersonAdapter: SearchPersonAdapter
@@ -87,11 +85,21 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
             binding.etxtSearchRequest.setText("")
             viewModel.searchPersons.value = emptyList()
         }
+
+        // Для открытия экрана с настройкой url сервера
+        binding.btnClear.setOnLongClickListener {
+            presenter.onSecretLongClick()
+            return@setOnLongClickListener true
+        }
     }
 
     override fun createSubscribers() {
         viewModel.searchPersons.observe(this@SearchActivity, Observer { items ->
             items?.let { searchPersonAdapter.setItems(it) }
+        })
+
+        viewModel.errorMessage.observe(this@SearchActivity, Observer { errorMessage ->
+            errorMessage?.let { showErrorMessage(it) }
         })
     }
 }

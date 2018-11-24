@@ -7,7 +7,7 @@ import okhttp3.Callback
 import okhttp3.Response
 import sbis.data.mapper.transformToPresentationList
 import sbis.data.model.gson.PersonSearchGson
-import sbis.domain.network.service.NetworkService
+import sbis.domain.network.service.network.NetworkService
 import sbis.faceinfo.presentation.search.contracts.SearchInteractorContract
 import sbis.helpers.arch.base.BaseInteractor
 import java.io.IOException
@@ -17,10 +17,9 @@ class SearchInteractor(private val networkService: NetworkService) :
     SearchInteractorContract.Interactor {
 
     override fun obtainPersons(searchRequest: String) {
-        //todo: coroutines
         networkService.searchPersons(searchRequest, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                listener?.obtainedPersons(emptyList(), e)
+                runUi { listener?.obtainedPersons(emptyList(), e) }
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -29,7 +28,7 @@ class SearchInteractor(private val networkService: NetworkService) :
                 val type = object : TypeToken<List<PersonSearchGson>>() {}.type
                 val persons = Gson().fromJson<List<PersonSearchGson>>(resultJson, type)
 
-                listener?.obtainedPersons(persons.transformToPresentationList(), null)
+                runUi { listener?.obtainedPersons(persons.transformToPresentationList(), null) }
             }
         })
     }

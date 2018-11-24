@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FaceInfo</string>
+
+    <string name="server_url_hint">Введите Url сервера</string>
 </resources>

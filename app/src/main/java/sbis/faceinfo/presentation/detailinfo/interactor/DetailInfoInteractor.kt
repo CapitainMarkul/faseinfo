@@ -1,15 +1,12 @@
 package sbis.faceinfo.presentation.detailinfo.interactor
 
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import sbis.data.mapper.transformToPresentation
-import sbis.data.mapper.transformToPresentationList
 import sbis.data.model.gson.PersonFullInfoGson
-import sbis.data.model.gson.PersonSearchGson
-import sbis.domain.network.service.NetworkService
+import sbis.domain.network.service.network.NetworkService
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoInteractorContract
 import sbis.helpers.arch.base.BaseInteractor
 import java.io.IOException
@@ -21,7 +18,7 @@ class DetailInfoInteractor(private val networkService: NetworkService) :
     override fun obtainUserFullInfo(userId: String) {
         networkService.getPersonFullInfo(userId, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                listener?.obtainedUserFulInfo(null, e)
+                runUi { listener?.obtainedUserFulInfo(null, e) }
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -29,7 +26,7 @@ class DetailInfoInteractor(private val networkService: NetworkService) :
 
                 val person = Gson().fromJson<PersonFullInfoGson>(resultJson, PersonFullInfoGson::class.java)
 
-                listener?.obtainedUserFulInfo(person.transformToPresentation(), null)
+                runUi { listener?.obtainedUserFulInfo(person.transformToPresentation(), null) }
             }
         })
     }
