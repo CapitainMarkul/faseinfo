@@ -6,11 +6,11 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import sbis.faceinfo.R
 
-
 @BindingAdapter("user_photo")
 fun CircleImageView.userPhoto(imgUrl: String?) {
     Picasso.get()
         .load(imgUrl)
+        .error(R.drawable.ic_no_smoke_36dp)
 //                    .centerCrop()
         .into(this)
 }
