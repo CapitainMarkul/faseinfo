@@ -1,14 +1,11 @@
 package sbis.faceinfo.presentation.detailinfo.view.activity
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.animation.AlphaAnimation
 import sbis.App
@@ -22,8 +19,6 @@ import sbis.faceinfo.presentation.detailinfo.view.adapter.DetailParamsAdapter
 import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModel
 import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModelFactory
 import sbis.helpers.arch.base.BaseActivity
-import sbis.helpers.view.ItemListDecorator
-
 
 class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailInfoVmContract.ViewModel>(),
     AppBarLayout.OnOffsetChangedListener {
@@ -43,7 +38,6 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
 
     private lateinit var binding: ActivityDetailInfoBinding
     private lateinit var detailParamsAdapter: DetailParamsAdapter
-
 
     private var isTitleVisible = false
     private var isTitleContainerVisible = true
@@ -70,30 +64,20 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         binding.appBar.addOnOffsetChangedListener(this)
         startAlphaAnimation(binding.toolbarUserName, 0, View.INVISIBLE)
 
-        detailParamsAdapter = DetailParamsAdapter().apply {
-            setItems(viewModel.user.value?.params ?: emptyList())
-        }
 
-        binding.rvParamItems.apply {
-            adapter = detailParamsAdapter
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@DetailInfoActivity, LinearLayoutManager.VERTICAL, false)
 
-            val itemDecorator = ItemListDecorator(ContextCompat.getDrawable(context, R.drawable.list_divider)!!, true)
-            addItemDecoration(itemDecorator)
-        }
+        // TODO: create 'DetailParamsAdapter', set first items
+
+        // TODO: set config RecyclerView (ParamItems)
     }
 
     override fun createSubscribers() {
-        viewModel.user.observe(this@DetailInfoActivity, Observer {
-            detailParamsAdapter.setItems(it?.params)
-        })
-
-        viewModel.errorMessage.observe(this@DetailInfoActivity, Observer { errorMessage ->
-            errorMessage?.let { showErrorMessage(it) }
-        })
+        //TODO: observe errorMessage, userFullInfo
+        //TODO: 'errorMessage' -> ShowErrorMessage
+        //TODO: 'userFullInfo' -> detailParamsAdapter.setItems(...)
     }
 
+    //region Animation
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         val maxScroll = appBarLayout.totalScrollRange
         val percentage = Math.abs(verticalOffset).toFloat() / maxScroll.toFloat()
@@ -131,4 +115,5 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         alphaAnimation.fillAfter = true
         v.startAnimation(alphaAnimation)
     }
+    //endregion
 }

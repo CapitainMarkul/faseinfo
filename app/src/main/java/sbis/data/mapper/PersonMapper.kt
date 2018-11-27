@@ -7,28 +7,14 @@ import sbis.data.model.presentation.ItemParam
 import sbis.data.model.presentation.PersonFullInfo
 import sbis.data.model.presentation.PersonSearch
 
-fun PersonSearchGson.transformToPresentation() =
-    PersonSearch(
-        id = id,
-        name = name,
-        secondName = secondName,
-        postName = postName,
-        photoUrl = photoUrl
-    )
+//TODO: PersonSearchGson to PersonSearch
+//TODO: List<PersonSearchGson> to List<PersonSearch>
 
-fun List<PersonSearchGson>.transformToPresentationList() =
-    map { it.transformToPresentation() }
+//TODO: PersonFullInfoGson to PersonFullInfo
+//TODO: List<PersonFullInfoGson> to List<PersonFullInfo>
 
-fun PersonFullInfoGson.transformToPresentation() =
-    PersonFullInfo(
-        id = id,
-        name = name,
-        secondName = secondName,
-        isSmoke = isSmoke,
-        photoUrl = photoUrl,
-        params = params.transformToPresentationItemParamList()
-    )
 
+// ============ ПРИМЕР ============
 fun ItemParamGson.transformToPresentation() =
     ItemParam(
         title = title,
