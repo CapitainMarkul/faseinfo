@@ -7,6 +7,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import sbis.data.model.presentation.ItemParam
 import sbis.faceinfo.R
 import sbis.helpers.view.circle.CustomCircle
+import kotlin.random.Random
 
 @BindingAdapter("user_photo")
 fun CircleImageView.userPhoto(imgUrl: String?) {
@@ -34,8 +35,8 @@ fun CustomCircle.circleSetup(itemParam: ItemParam?) {
         setTextSize(16F)
         setTextColor(R.color.colorPrimary)
         setPadding(4F)
-        setParamValue(10)
-        setInverseColors(false)
+        setParamValue(Random.nextInt(1, 11))
+        setInverseColors(Random.nextBoolean())
 
         invalidate()
     }

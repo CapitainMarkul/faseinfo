@@ -12,12 +12,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="68dp"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:layout_margin="4dp"
         android:weightSum="1">
 
         <!--todo: bindingAdapter set icons-->
@@ -38,14 +37,14 @@
             android:paddingTop="4dp"
             android:text="@{viewModel.title}"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="20sp"
+            android:textSize="22sp"
             tools:ignore="RtlSymmetry"
             tools:text="Смиренность" />
 
         <sbis.helpers.view.circle.CustomCircle
+            cc_setup="@{viewModel}"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            cc_setup="@{viewModel}"
             android:layout_weight="0.2" />
 
     </LinearLayout>
