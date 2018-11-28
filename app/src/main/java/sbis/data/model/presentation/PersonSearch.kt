@@ -5,10 +5,10 @@ import sbis.helpers.arch.parcelable.KParcelable
 
 data class PersonSearch(
     val id: String,
-    val name: String,
-    val secondName: String,
-    val postName: String,
-    val photoUrl: String
+    val name: String?,
+    val secondName: String?,
+    val postName: String?,
+    val photoUrl: String?
 ) : KParcelable {
 
     companion object {

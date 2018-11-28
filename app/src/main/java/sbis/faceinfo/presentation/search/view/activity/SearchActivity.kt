@@ -71,7 +71,7 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
             addItemDecoration(itemDecorator)
         }
 
-        val searchStartCount = 4
+        val searchStartCount = 3
         binding.etxtSearchRequest.let { it ->
             RxTextView.afterTextChangeEvents(it).debounce(300, TimeUnit.MILLISECONDS)
                 .map<String> { _ -> it.text.toString() }
