@@ -1,6 +1,5 @@
 package sbis.domain.network.command.rpc
 
-import com.google.gson.Gson
 import okhttp3.*
 import sbis.App
 import sbis.domain.network.HttpProtocol
@@ -20,43 +19,43 @@ class SearchPersonCommand(private val searchRequest: String) : RpcCommand {
     override fun execute(okHttpClient: OkHttpClient, callBack: Callback) {
         //TODO: https://0ea0f6d2.ngrok.io/contacts
 
-        val requestJson = Gson().toJson(
-            SearchRequest(
-                sid = App.USER_SID,
-                pid = App.USER_PID,
-                query_str = searchRequest,
-                contragent = "-2",
-                limit = 10
-            )
-        )
-
-        val url = HttpUrl.Builder()
-            .scheme(HttpProtocol.HTTPS.protocolName)
-            .host(App.get().getStorageService().getServerUrl())
-            .addPathSegment("contacts")
-            .build()
-
-        val requestBody = RequestBody.create(MediaType.parse("application/json"), requestJson)
-
-        val request = Request.Builder()
-            .url(url.toString())
-            .post(requestBody)
-            .build()
-
-        //FIXME: FOR LOCAL TEST
-        //TODO: "https://httpbin.org/get?website=www.journaldev.com&tutorials=android"
+//        val requestJson = Gson().toJson(
+//            SearchRequest(
+//                sid = App.USER_SID,
+//                pid = App.USER_PID,
+//                query_str = searchRequest,
+//                contragent = "-2",
+//                limit = 10
+//            )
+//        )
+//
 //        val url = HttpUrl.Builder()
 //            .scheme(HttpProtocol.HTTPS.protocolName)
 //            .host(App.get().getStorageService().getServerUrl())
-//            .addPathSegment("get")
-//            .addQueryParameter("website", "www.journaldev.com")
-//            .addQueryParameter("tutorials", "android")
+//            .addPathSegment("contacts")
 //            .build()
 //
+//        val requestBody = RequestBody.create(MediaType.parse("application/json"), requestJson)
+//
 //        val request = Request.Builder()
-////            .header("Authorisation", "YOUR_TOKEN")
 //            .url(url.toString())
+//            .post(requestBody)
 //            .build()
+
+        //FIXME: FOR LOCAL TEST
+        //TODO: "https://httpbin.org/get?website=www.journaldev.com&tutorials=android"
+        val url = HttpUrl.Builder()
+            .scheme(HttpProtocol.HTTPS.protocolName)
+            .host(App.get().getStorageService().getServerUrl())
+            .addPathSegment("get")
+            .addQueryParameter("website", "www.journaldev.com")
+            .addQueryParameter("tutorials", "android")
+            .build()
+
+        val request = Request.Builder()
+//            .header("Authorisation", "YOUR_TOKEN")
+            .url(url.toString())
+            .build()
 
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -65,11 +64,11 @@ class SearchPersonCommand(private val searchRequest: String) : RpcCommand {
 
             override fun onResponse(call: Call, response: Response) {
                 //FIXME: FOR LOCAL TEST
-//                val contentType = response.body()!!.contentType()
-//                val body = ResponseBody.create(contentType, generateFiveStubModels())
-//                callBack.onResponse(call, response.newBuilder().body(body).build())
+                val contentType = response.body()!!.contentType()
+                val body = ResponseBody.create(contentType, generateFiveStubModels())
+                callBack.onResponse(call, response.newBuilder().body(body).build())
 
-                callBack.onResponse(call, response)
+//                callBack.onResponse(call, response)
             }
         })
     }

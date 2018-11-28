@@ -40,7 +40,7 @@
             android:maxLines="1"
             android:text='@{viewModel.secondName + " " + viewModel.name}'
             android:textColor="@color/colorTextPrimary"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/txt_user_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/user_photo"

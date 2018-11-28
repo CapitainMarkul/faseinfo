@@ -1,12 +1,12 @@
 package sbis.helpers.view.circle
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
+import sbis.faceinfo.R
 
 class CustomCircle @JvmOverloads constructor(
     context: Context? = null,
@@ -14,48 +14,118 @@ class CustomCircle @JvmOverloads constructor(
     private val defStyleAttr: Int = -1
 ) : View(context, attrs, defStyleAttr) {
 
-    val circleBackgroundPaint = Paint().apply {
-        isAntiAlias = true
-        color = Color.GRAY
-        style = Paint.Style.FILL
-//        setShadowLayer(5.5F, 6.0F, 6.0F, Color.BLACK)
+    private var paddingView = 0F
+    private var isInverseColors = false
+
+    private val colors = listOf(
+        Color.parseColor("#FF3000"), // <- BAD
+        Color.parseColor("#FF6000"),
+        Color.parseColor("#FF9000"),
+        Color.parseColor("#FFC000"),
+        Color.parseColor("#FFF000"),
+        Color.parseColor("#E0FF00"),
+        Color.parseColor("#B0FF00"),
+        Color.parseColor("#80FF00"),
+        Color.parseColor("#50FF00"),
+        Color.parseColor("#20FF00")  // <- GOOD
+    )
+
+    private val scaleStart = 0.4F
+    private val scaleEnd = 1.0F
+    private val scaleStepCount = 9
+
+    private val scaleList = mutableListOf<Float>().apply {
+        val scaleStep = (scaleEnd - scaleStart) / scaleStepCount
+        add(scaleStart)
+
+        (0..8).forEach { add(this[it] + scaleStep) }
     }
 
-    val circlePaint = Paint().apply {
+    private val circleBackgroundPaint = Paint().apply {
+        isAntiAlias = true
+        color = ContextCompat.getColor(context!!, R.color.colorCircleBackground)
+        style = Paint.Style.FILL
+    }
+
+    private val circlePaint = Paint().apply {
         isAntiAlias = true
         color = Color.GREEN
         style = Paint.Style.FILL
-        setShadowLayer(5.5F, 6.0F, 6.0F, Color.BLACK)
+
+        //shadow
+        setShadowLayer(10f, 0f, 0f, 0x80000000.toInt())
+        setLayerType(View.LAYER_TYPE_SOFTWARE, this)
     }
 
-    val textPaint = Paint().apply {
+    private val textPaint = Paint().apply {
         isAntiAlias = true
-        style = Paint.Style.STROKE
+        style = Paint.Style.FILL_AND_STROKE
         textSize = 48F
+        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+
+        setLayerType(View.LAYER_TYPE_SOFTWARE, this)
     }
 
-    val textTen = "10"
-    val textWidth = textPaint.measureText(textTen)
-    val bounds = Rect().apply {
-        textPaint.getTextBounds(textTen, 0, textTen.length, this)
+    private var textValue = "10"
+    private var textWidth = textPaint.measureText(textValue)
+    private var bounds = Rect().apply {
+        textPaint.getTextBounds(textValue, 0, textValue.length, this)
     }
-    val textHeight = bounds.height()
+    private var textHeight = bounds.height()
 
+    fun setInverseColors(isInverse: Boolean) {
+        isInverseColors = isInverse
+    }
+
+    fun setTextSize(testSizeDp: Float) {
+        textPaint.textSize = testSizeDp.dp2px()
+    }
+
+    fun setTextColor(colorId: Int) {
+        textPaint.color = ContextCompat.getColor(context, colorId)
+    }
+
+    fun setPadding(paddingDp: Float) {
+        paddingView = paddingDp.dp2px()
+    }
+
+    fun setParamValue(value: Int) {
+        textValue = if (value > 0) value.toString() else "1"
+        calculateTextParam()
+    }
+
+    private fun calculateTextParam() {
+        textWidth = textPaint.measureText(textValue)
+
+        textPaint.getTextBounds(textValue, 0, textValue.length, bounds)
+        textHeight = bounds.height()
+    }
 
     override fun onDraw(canvas: Canvas) {
         val x = (width / 2).toFloat()
         val y = (height / 2).toFloat()
-        val fullViewRadius = (width / 2).toFloat()
+        val fullViewRadius = (width / 2).toFloat() - paddingView * 2
 
         //Draw Background Circle
         canvas.drawCircle(x, y, fullViewRadius, circleBackgroundPaint)
 
         //Draw Foreground Circle
-        canvas.drawCircle(x, y, fullViewRadius / 2, circlePaint)
+        val paramMaxIndex = 9 //0..9
+        val currentIndex = textValue.toInt() - 1
+        val colorIndex = if (!isInverseColors) currentIndex else paramMaxIndex - currentIndex
+
+        val foregroundCircleRadius = fullViewRadius * scaleList[currentIndex]
+        canvas.drawCircle(x, y, foregroundCircleRadius, circlePaint.apply {
+            color = colors[colorIndex]
+        })
 
         //Draw Center Text
         val des = (textPaint.descent() + textPaint.ascent()) / 2
-        canvas.drawText(textTen, x - (textWidth / 2), y - des, textPaint)
-
+        canvas.drawText(textValue, x - (textWidth / 2), y - des, textPaint)
     }
+
+    private fun Float.dp2px() =
+        TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, this, context.resources.displayMetrics
+        )
 }

@@ -4,7 +4,9 @@ import android.databinding.BindingAdapter
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import sbis.data.model.presentation.ItemParam
 import sbis.faceinfo.R
+import sbis.helpers.view.circle.CustomCircle
 
 @BindingAdapter("user_photo")
 fun CircleImageView.userPhoto(imgUrl: String?) {
@@ -23,5 +25,18 @@ fun ImageView.smokeImg(isSmoke: Boolean?) {
                 if (it) R.drawable.ic_smoke_36dp else R.drawable.ic_no_smoke_36dp
             )
         )
+    }
+}
+
+@BindingAdapter("cc_setup")
+fun CustomCircle.circleSetup(itemParam: ItemParam?) {
+    itemParam?.let {
+        setTextSize(16F)
+        setTextColor(R.color.colorPrimary)
+        setPadding(4F)
+        setParamValue(10)
+        setInverseColors(false)
+
+        invalidate()
     }
 }

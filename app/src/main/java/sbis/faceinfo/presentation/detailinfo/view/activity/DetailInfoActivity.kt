@@ -7,7 +7,6 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -22,7 +21,6 @@ import sbis.faceinfo.presentation.detailinfo.view.adapter.DetailParamsAdapter
 import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModel
 import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModelFactory
 import sbis.helpers.arch.base.BaseActivity
-import sbis.helpers.view.ItemListDecorator
 
 
 class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailInfoVmContract.ViewModel>(),
@@ -78,9 +76,6 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
             adapter = detailParamsAdapter
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@DetailInfoActivity, LinearLayoutManager.VERTICAL, false)
-
-            val itemDecorator = ItemListDecorator(ContextCompat.getDrawable(context, R.drawable.list_divider)!!, true)
-            addItemDecoration(itemDecorator)
         }
     }
 

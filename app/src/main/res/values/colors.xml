@@ -10,6 +10,7 @@
     <color name="colorAppBarDivider">#E4E4E4</color>
     <color name="colorItemsDivider">#F5F5F5</color>
 
+    <color name="colorPrimaryBackground">#FBFBFB</color>
 
-    <color name="testColor">#e55515</color>
+    <color name="colorCircleBackground">#B3F2EEEF</color> <!--70%-->
 </resources>
