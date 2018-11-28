@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#242F3E</color>
-    <color name="colorPrimaryDark">#1A212C</color>
-    <color name="colorAccent">#E1F2F4</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#B9B9B9</color>
 
-    <color name="colorGray1">#606A76</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">@color/colorAccent</color>
+
+    <color name="colorAppBarDivider">#E4E4E4</color>
+    <color name="colorItemsDivider">#F5F5F5</color>
+
+
+    <color name="testColor">#e55515</color>
 </resources>

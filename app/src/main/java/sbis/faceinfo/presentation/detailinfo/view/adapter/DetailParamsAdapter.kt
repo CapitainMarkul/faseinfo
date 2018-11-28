@@ -30,11 +30,11 @@ class DetailParamsAdapter : BaseAdapter<DetailParamsAdapter.ViewHolder, ItemPara
 
             val minParamValue = 0F
             val maxParamValue = 100F
-            bindView.sbParam.apply {
-                setMin(minParamValue)
-                setMax(maxParamValue)
-                currentValue = viewModel.value.toFloat()
-            }
+//            bindView.sbParam.apply {
+//                setMin(minParamValue)
+//                setMax(maxParamValue)
+//                currentValue = viewModel.value.toFloat()
+//            }
 
             bindView.executePendingBindings()
         }
