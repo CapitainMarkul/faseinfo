@@ -18,16 +18,16 @@ class CustomCircle @JvmOverloads constructor(
     private var isInverseColors = false
 
     private val colors = listOf(
-        Color.parseColor("#FF3000"), // <- BAD
-        Color.parseColor("#FF6000"),
-        Color.parseColor("#FF9000"),
-        Color.parseColor("#FFC000"),
-        Color.parseColor("#FFF000"),
-        Color.parseColor("#E0FF00"),
-        Color.parseColor("#B0FF00"),
-        Color.parseColor("#80FF00"),
-        Color.parseColor("#50FF00"),
-        Color.parseColor("#20FF00")  // <- GOOD
+        Color.parseColor("#F82E47"), // <- BAD
+        Color.parseColor("#FF3366"),
+        Color.parseColor("#FF6666"),
+        Color.parseColor("#FF9966"),
+        Color.parseColor("#FF9933"),
+        Color.parseColor("#FFCC33"),
+        Color.parseColor("#99CC00"),
+        Color.parseColor("#00CC33"),
+        Color.parseColor("#00CC99"),
+        Color.parseColor("#00CC66")  // <- GOOD
     )
 
     private val scaleStart = 0.4F
