@@ -1,31 +1,17 @@
 package sbis.data.mapper
 
-import sbis.data.model.gson.PersonParamsGson
-import sbis.data.model.gson.PersonSearchGson
-import sbis.data.model.presentation.ItemParam
-import sbis.data.model.presentation.Param
-import sbis.data.model.presentation.PersonParams
-import sbis.data.model.presentation.PersonSearch
+//TODO: PersonSearchGson to PersonSearch
+//TODO: List<PersonSearchGson> to List<PersonSearch>
 
-fun PersonSearchGson.transformToPresentation() =
-    PersonSearch(
-        id = id,
-        name = name,
-        secondName = secondName,
-        postName = postName,
-        photoUrl = photoUrl
-    )
+//TODO: PersonParamsGson to PersonParams
 
-fun List<PersonSearchGson>.transformToPresentationList() =
-    map { it.transformToPresentation() }
 
-fun PersonParamsGson.transformToPresentation() =
-    PersonParams(
-        oftenLeaving = oftenLeaving,
-        params = listOf(
-            ItemParam(Param.RESPONSIBILITY, responsibility),
-            ItemParam(Param.PROCRASTINATION, procrastination),
-            ItemParam(Param.SOCIABILITY, sociability),
-            ItemParam(Param.PUNCTUALITY, punctuality)
-        )
-    )
+// ============ ПРИМЕР ============
+//fun ItemParamGson.transformToPresentation() =
+//    ItemParam(
+//        title = title,
+//        value = value
+//    )
+//
+//fun List<ItemParamGson>.transformToPresentationItemParamList() =
+//    map { it.transformToPresentation() }

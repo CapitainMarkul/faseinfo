@@ -43,10 +43,10 @@ class SearchPresenter(
     }
 
     override fun onPersonSelected(person: PersonSearch) {
-        router.showDetailInfo(androidComponent!!, person)
+        // todo: fun showDetailInfo(androidComponent: AndroidComponent, user: PersonSearch)
     }
 
     override fun onSecretLongClick() {
-        router.showSettingScreen(androidComponent!!)
+        // todo: fun showSettingScreen(androidComponent: AndroidComponent)
     }
 }

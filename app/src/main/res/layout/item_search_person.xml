@@ -30,40 +30,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/user_stub" />
 
-        <TextView
-            android:id="@+id/txt_user_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text='@{viewModel.secondName + " " + viewModel.name}'
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/txt_user_post"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/user_photo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="@tools:sample/full_names" />
-
-        <TextView
-            android:id="@+id/txt_user_post"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text='@{viewModel.postName}'
-            android:textColor="@color/colorTextSecondary"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/user_photo"
-            app:layout_constraintTop_toBottomOf="@+id/txt_user_name"
-            tools:text="@tools:sample/cities" />
+        <!--todo: txt UserName with dataBinding-->
+        <!--todo: txt UserPostName with dataBinding-->
 
     </android.support.constraint.ConstraintLayout>
 

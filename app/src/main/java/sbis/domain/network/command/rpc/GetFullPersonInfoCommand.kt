@@ -1,9 +1,6 @@
 package sbis.domain.network.command.rpc
 
-import android.os.Handler
-import com.google.gson.Gson
 import okhttp3.*
-import sbis.App
 import sbis.domain.network.HttpProtocol
 import sbis.domain.network.command.rpc.common.RpcCommand
 import java.io.IOException
@@ -18,40 +15,21 @@ class GetFullPersonInfoCommand(val personId: Int) : RpcCommand {
     override fun execute(okHttpClient: OkHttpClient, callBack: Callback) {
         //TODO: https://1e2e499e.ngrok.io/contacts
 
-        val requestJson = Gson().toJson(
-            FullInfoRequest(
-                sid = App.get().getStorageService().getUserSid(),
-                user_id = personId
-            )
-        )
-
-        val url = HttpUrl.Builder()
-            .scheme(HttpProtocol.HTTPS.protocolName)
-            .host(App.get().getStorageService().getServerUrl())
-            .addPathSegment("get_user_info")
-            .build()
-
-        val requestBody = RequestBody.create(MediaType.parse("application/json"), requestJson)
-
-        val request = Request.Builder()
-            .url(url.toString())
-            .post(requestBody)
-            .build()
+        //TODO: Request to Server
 
         //FIXME: FOR LOCAL TEST
         //TODO: "https://httpbin.org/get?website=www.journaldev.com&tutorials=android"
-//        val url = HttpUrl.Builder()
-//            .scheme(HttpProtocol.HTTPS.protocolName)
-//            .host("httpbin.org")
-//            .addPathSegment("get")
-//            .addQueryParameter("website", "www.journaldev.com")
-//            .addQueryParameter("tutorials", "android")
-//            .build()
-//
-//        val request = Request.Builder()
-////            .header("Authorisation", "YOUR_TOKEN")
-//            .url(url.toString())
-//            .build()
+        val url = HttpUrl.Builder()
+            .scheme(HttpProtocol.HTTPS.protocolName)
+            .host("httpbin.org")
+            .addPathSegment("get")
+            .addQueryParameter("website", "www.journaldev.com")
+            .addQueryParameter("tutorials", "android")
+            .build()
+
+        val request = Request.Builder()
+            .url(url.toString())
+            .build()
 
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -60,11 +38,11 @@ class GetFullPersonInfoCommand(val personId: Int) : RpcCommand {
 
             override fun onResponse(call: Call, response: Response) {
                 //FIXME: FOR LOCAL TEST
-//                val contentType = response.body()!!.contentType()
-//                val body = ResponseBody.create(contentType, generateFiveStubModels())
-//                callBack.onResponse(call, response.newBuilder().body(body).build())
+                val contentType = response.body()!!.contentType()
+                val body = ResponseBody.create(contentType, generateFiveStubModels())
+                callBack.onResponse(call, response.newBuilder().body(body).build())
 
-                callBack.onResponse(call, response)
+//                callBack.onResponse(call, response)
             }
         })
     }

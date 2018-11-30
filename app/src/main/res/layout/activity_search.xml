@@ -37,12 +37,7 @@
                 android:paddingEnd="12dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_search"
-                    tools:ignore="ContentDescription" />
-
+                <!-- todo: img Search -->
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/etxt_search_request"
                     android:layout_width="0dp"
@@ -56,17 +51,7 @@
                     android:textColorHint="@color/colorTextSecondary"
                     app:backgroundTint="@color/colorPrimary" />
 
-                <ImageView
-                    android:id="@+id/btn_clear"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_close"
-                    tools:ignore="ContentDescription" />
-
+                <!-- todo: img Clear Btn -->
             </LinearLayout>
 
             <View
@@ -91,6 +76,7 @@
             android:layout_height="@dimen/progress_bar_size"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="?attr/actionBarSize"
+            tools:visibility="gone"
             android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}" />
 
         <LinearLayout
@@ -101,7 +87,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="?attr/actionBarSize"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"

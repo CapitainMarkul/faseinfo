@@ -5,13 +5,22 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import sbis.App
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivitySettingBinding
-import sbis.faceinfo.presentation.search.view.activity.SearchActivity
 
+//TODO: ЗАДАНИЕ #2
 /**
- * Простой экран для ввода адреса сервера
+ * Задание №2.
+ *
+ * Создание экрана настроек.
+ *
+ * Экран предназначен для ввода SID'a пользователя
+ * и URL удаленного хоста для подключения.
+ *
+ * 1. При старте экрана в поля ввода, выводим уже сохраненныю
+ *    в SharedPreferences информацию.
+ * 2. После нажатия кнопки "ОК", необходимо сохранить введенную информацию
+ *    в SharedPreferences и открыть экран с поиском сотрудников.
  * */
 class SettingActivity : AppCompatActivity() {
 
@@ -28,26 +37,9 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this@SettingActivity, R.layout.activity_setting)
 
-        val savedServerUrl = App.get().getStorageService().getServerUrl()
-        val savedUserSid = App.get().getStorageService().getUserSid()
-        with(binding) {
-
-            etxtServerUrl.setText(savedServerUrl)
-            etxtUserSid.setText(savedUserSid)
-
-            btnOk.setOnClickListener {
-                saveInputInfo(etxtServerUrl.text.toString(), etxtUserSid.text.toString())
-                showSearchScreen()
-            }
-        }
+        //todo:
     }
 
-    private fun saveInputInfo(serverUrl: String, userSid: String) {
-        App.get().getStorageService().saveServerUrl(serverUrl)
-        App.get().getStorageService().saveUserSid(userSid)
-    }
-
-    private fun showSearchScreen() {
-        startActivity(SearchActivity.createIntent(this))
-    }
+    //todo: fun saveInputInfo(serverUrl: String, userSid: String)
+    //todo: fun showSearchScreen()
 }

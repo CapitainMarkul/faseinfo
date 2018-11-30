@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
@@ -21,9 +19,22 @@ import sbis.faceinfo.presentation.search.router.SearchRouter
 import sbis.faceinfo.presentation.search.view.adapter.SearchPersonAdapter
 import sbis.faceinfo.presentation.search.viewModel.SearchViewModel
 import sbis.helpers.arch.base.BaseActivity
-import sbis.helpers.view.ItemListDecorator
 import java.util.concurrent.TimeUnit
 
+//TODO: ЗАДАНИЕ #3
+/**
+ * Задание №3.
+ *
+ * Создание экрана с отображением списка сотрудников.
+ *
+ * Задачи:
+ *
+ * 1. Выводить список сотрудников на экране.
+ * 2. Долгое нажатие на "крестик" должно приводить
+ *    к открытию экрана с настройками.
+ * 3. Осуществление запросов к серверу.
+ * 4. Обработка полученного сообщения от сервера.
+ * */
 class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract.ViewModel>() {
 
     companion object {
@@ -63,12 +74,11 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
         }
 
         binding.rvSearchResult.apply {
-            adapter = searchPersonAdapter
-            layoutManager = LinearLayoutManager(this@SearchActivity, LinearLayoutManager.VERTICAL, false)
-            setHasFixedSize(true)
-
-            val itemDecorator = ItemListDecorator(ContextCompat.getDrawable(context, R.drawable.list_divider)!!, true)
-            addItemDecoration(itemDecorator)
+            //TODO: настройка виджета RecyclerView
+            // adapter
+            // layoutManager
+            // fixSize
+            // itemDecorator - ItemListDecorator(ContextCompat.getDrawable(context, R.drawable.list_divider)!!, true)
         }
 
         val searchStartCount = 3
@@ -81,16 +91,15 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
                 .subscribe { searchRequest -> presenter.updateSearchRequest(searchRequest) }
         }
 
-        binding.btnClear.setOnClickListener {
-            binding.etxtSearchRequest.setText("")
-            viewModel.searchPersons.value = emptyList()
-        }
+//        binding.btnClear.setOnClickListener {
+            //TODO: очистка введенного текста, путем нажания на крестик
+//        }
 
-        // Для открытия экрана с настройкой url сервера
-        binding.btnClear.setOnLongClickListener {
-            presenter.onSecretLongClick()
-            return@setOnLongClickListener true
-        }
+//        binding.btnClear.setOnLongClickListener {
+            //TODO: открытие экрана с настройками
+
+//            return@setOnLongClickListener true
+//        }
     }
 
     override fun createSubscribers() {

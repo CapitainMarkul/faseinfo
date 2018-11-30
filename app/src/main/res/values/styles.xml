@@ -10,11 +10,9 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/background_splash</item>
-        <item name="android:statusBarColor">@color/colorPrimaryBackground</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-    </style>
+    <!-- todo: SplashTheme parent AppTheme -->
+    <!-- windowBackground, statusBarColor -->
+    <!-- @drawable/background_splash, @color/colorPrimaryBackground -->
 
     <style name="DetailInfoTheme" parent="AppTheme">
         <item name="android:statusBarColor">@color/colorCardBackground</item>

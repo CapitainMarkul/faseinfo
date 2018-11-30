@@ -1,6 +1,5 @@
 package sbis.faceinfo.presentation.detailinfo.view.activity
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
@@ -8,7 +7,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import sbis.App
@@ -24,7 +22,17 @@ import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModel
 import sbis.faceinfo.presentation.detailinfo.viewmodel.DetailInfoViewModelFactory
 import sbis.helpers.arch.base.BaseActivity
 
-
+//TODO: ЗАДАНИЕ #4
+/**
+ * Задание №4.
+ *
+ * Создание экрана с етальной информации о сотруднике.
+ *
+ * Задачи:
+ *
+ * 1. Выводить имя, фамилию, отдел и фотографию сотрудника.
+ * 2. Осуществлять загрузку детальной информации с сервера.
+ * */
 class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailInfoVmContract.ViewModel>(),
     AppBarLayout.OnOffsetChangedListener {
 
@@ -43,7 +51,6 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
 
     private lateinit var binding: ActivityDetailInfoBinding
     private lateinit var detailParamsAdapter: DetailParamsAdapter
-
 
     private var isTitleVisible = false
     private var isTitleContainerVisible = true
@@ -82,15 +89,12 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
     }
 
     override fun createSubscribers() {
-        viewModel.userParams.observe(this@DetailInfoActivity, Observer {
-            detailParamsAdapter.setItems(it?.params)
-        })
-
-        viewModel.errorMessage.observe(this@DetailInfoActivity, Observer { errorMessage ->
-            errorMessage?.let { showErrorMessage(it) }
-        })
+        //TODO: observe errorMessage, userParams
+        //TODO: 'errorMessage' -> ShowErrorMessage
+        //TODO: 'userParams' -> detailParamsAdapter.setItems(...)
     }
 
+    //region Animation
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         val maxScroll = appBarLayout.totalScrollRange
         val percentage = Math.abs(verticalOffset).toFloat() / maxScroll.toFloat()
@@ -128,4 +132,5 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         alphaAnimation.fillAfter = true
         v.startAnimation(alphaAnimation)
     }
+    //endregion
 }
