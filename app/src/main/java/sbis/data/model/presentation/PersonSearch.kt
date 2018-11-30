@@ -4,7 +4,7 @@ import android.os.Parcel
 import sbis.helpers.arch.parcelable.KParcelable
 
 data class PersonSearch(
-    val id: String,
+    val id: Int,
     val name: String?,
     val secondName: String?,
     val postName: String?,
@@ -17,7 +17,7 @@ data class PersonSearch(
     }
 
     private constructor(p: Parcel) : this(
-        id = p.readString(),
+        id = p.readInt(),
         name = p.readString(),
         secondName = p.readString(),
         postName = p.readString(),
@@ -25,7 +25,7 @@ data class PersonSearch(
     )
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(id)
+        writeInt(id)
         writeString(name)
         writeString(secondName)
         writeString(postName)

@@ -73,7 +73,7 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
 
         val searchStartCount = 3
         binding.etxtSearchRequest.let { it ->
-            RxTextView.afterTextChangeEvents(it).debounce(300, TimeUnit.MILLISECONDS)
+            RxTextView.afterTextChangeEvents(it).debounce(500, TimeUnit.MILLISECONDS)
                 .map<String> { _ -> it.text.toString() }
                 .filter { searchText -> searchText.length > searchStartCount }
                 .filter { searchText -> searchText != viewModel.searchRequest.value }

@@ -10,9 +10,11 @@ class CookieManager : CookieJar {
 
     fun addCookie(url: String, cookie: Cookie) {
         val cookieList = cookies[url]
-        if(cookieList == null) {
+        if (cookieList == null) {
             cookies[url] = mutableListOf(cookie)
         } else {
+            cookieList.clear()
+
             cookieList.add(cookie)
         }
 

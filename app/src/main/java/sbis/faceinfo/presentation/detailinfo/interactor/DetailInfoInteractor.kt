@@ -5,7 +5,7 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import sbis.data.mapper.transformToPresentation
-import sbis.data.model.gson.PersonFullInfoGson
+import sbis.data.model.gson.PersonParamsGson
 import sbis.domain.network.service.network.NetworkService
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoInteractorContract
 import sbis.helpers.arch.base.BaseInteractor
@@ -15,7 +15,7 @@ class DetailInfoInteractor(private val networkService: NetworkService) :
     BaseInteractor<DetailInfoInteractorContract.Presenter>(),
     DetailInfoInteractorContract.Interactor {
 
-    override fun obtainUserFullInfo(userId: String) {
+    override fun obtainUserFullInfo(userId: Int) {
         networkService.getPersonFullInfo(userId, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runUi { listener?.obtainedUserFulInfo(null, e) }
@@ -24,9 +24,12 @@ class DetailInfoInteractor(private val networkService: NetworkService) :
             override fun onResponse(call: Call, response: Response) {
                 val resultJson = response.body()!!.string()
 
-                val person = Gson().fromJson<PersonFullInfoGson>(resultJson, PersonFullInfoGson::class.java)
-
-                runUi { listener?.obtainedUserFulInfo(person.transformToPresentation(), null) }
+                try {
+                    val person = Gson().fromJson<PersonParamsGson>(resultJson, PersonParamsGson::class.java)
+                    runUi { listener?.obtainedUserFulInfo(person.transformToPresentation(), null) }
+                } catch (e: Exception) {
+                    runUi { listener?.obtainedUserFulInfo(null, e) }
+                }
             }
         })
     }

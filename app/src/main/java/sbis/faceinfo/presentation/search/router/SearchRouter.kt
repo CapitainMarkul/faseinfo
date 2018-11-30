@@ -1,6 +1,7 @@
 package sbis.faceinfo.presentation.search.router
 
 import android.content.Intent
+import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.presentation.detailinfo.view.activity.DetailInfoActivity
 import sbis.faceinfo.presentation.search.contracts.SearchRouterContract
 import sbis.faceinfo.presentation.setting.SettingActivity
@@ -9,9 +10,9 @@ import sbis.helpers.arch.contracts.AndroidComponent
 
 class SearchRouter() : BaseRouter<SearchRouterContract.Presenter>(), SearchRouterContract.Router {
 
-    override fun showDetailInfo(androidComponent: AndroidComponent, userId: String) {
+    override fun showDetailInfo(androidComponent: AndroidComponent, user: PersonSearch) {
         with(androidComponent.activity) {
-            startActivity(DetailInfoActivity.createIntent(this, userId))
+            startActivity(DetailInfoActivity.createIntent(this, user))
         }
     }
 

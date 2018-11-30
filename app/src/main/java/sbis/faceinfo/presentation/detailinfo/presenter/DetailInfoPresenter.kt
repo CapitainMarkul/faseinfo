@@ -1,12 +1,14 @@
 package sbis.faceinfo.presentation.detailinfo.presenter
 
-import sbis.data.model.presentation.PersonFullInfo
+import sbis.App
+import sbis.data.model.presentation.PersonParams
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoInteractorContract
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoRouterContract
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract.ViewModel.State
 import sbis.helpers.arch.base.BasePresenter
 import sbis.helpers.arch.contracts.AndroidComponent
+import sbis.helpers.network.cancelAllCalls
 
 class DetailInfoPresenter(
     val interactor: DetailInfoInteractorContract.Interactor,
@@ -28,12 +30,14 @@ class DetailInfoPresenter(
 
     override fun detachView() {
         super.detachView()
+
+        App.get().getNetworkClient().cancelAllCalls()
     }
 
-    override fun obtainedUserFulInfo(user: PersonFullInfo?, error: Throwable?) {
+    override fun obtainedUserFulInfo(userParams: PersonParams?, error: Throwable?) {
         if (error == null) {
             vm.state.value = State.DATA
-            vm.user.value = user
+            vm.userParams.value = userParams
         } else {
             vm.state.value = State.ERROR
             vm.errorMessage.value = error.localizedMessage

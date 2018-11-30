@@ -2,9 +2,11 @@ package sbis.data.model.presentation
 
 import android.os.Parcel
 import sbis.helpers.arch.parcelable.KParcelable
+import sbis.helpers.arch.parcelable.readEnum
+import sbis.helpers.arch.parcelable.writeEnum
 
 data class ItemParam(
-    val title: String,
+    val param: Param,
     val value: Int
 ) : KParcelable {
 
@@ -14,12 +16,12 @@ data class ItemParam(
     }
 
     private constructor(p: Parcel) : this(
-        title = p.readString(),
+        param = p.readEnum<Param>()!!,
         value = p.readInt()
     )
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(title)
+        writeEnum(param)
         writeInt(value)
     }
 }

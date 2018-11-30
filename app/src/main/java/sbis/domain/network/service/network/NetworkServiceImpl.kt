@@ -10,6 +10,6 @@ class NetworkServiceImpl(private val okHttpClient: OkHttpClient) : NetworkServic
     override fun searchPersons(searchRequest: String, responseCallBack: Callback) =
         SearchPersonCommand(searchRequest).execute(okHttpClient, responseCallBack)
 
-    override fun getPersonFullInfo(personId: String, responseCallBack: Callback)=
+    override fun getPersonFullInfo(personId: Int, responseCallBack: Callback)=
         GetFullPersonInfoCommand(personId).execute(okHttpClient, responseCallBack)
 }

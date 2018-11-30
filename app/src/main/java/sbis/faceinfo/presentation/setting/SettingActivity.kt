@@ -29,17 +29,22 @@ class SettingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this@SettingActivity, R.layout.activity_setting)
 
         val savedServerUrl = App.get().getStorageService().getServerUrl()
+        val savedUserSid = App.get().getStorageService().getUserSid()
         with(binding) {
 
             etxtServerUrl.setText(savedServerUrl)
+            etxtUserSid.setText(savedUserSid)
 
             btnOk.setOnClickListener {
-                val serverUrl = etxtServerUrl.text.toString()
-                App.get().getStorageService().saveServerUrl(serverUrl)
-
+                saveInputInfo(etxtServerUrl.text.toString(), etxtUserSid.text.toString())
                 showSearchScreen()
             }
         }
+    }
+
+    private fun saveInputInfo(serverUrl: String, userSid: String) {
+        App.get().getStorageService().saveServerUrl(serverUrl)
+        App.get().getStorageService().saveUserSid(userSid)
     }
 
     private fun showSearchScreen() {

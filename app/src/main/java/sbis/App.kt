@@ -15,39 +15,21 @@ import java.util.concurrent.TimeUnit
 
 class App : Application() {
     companion object {
-        const val CONNECTION_TIME_OUT = 10L
+        const val CONNECTION_TIME_OUT = 60L
+        const val SOCKET_TIME_OUT = 60L
 
         lateinit var instance: App
 
         fun get() = instance
 
         private const val PHOTO_HOST_URL = "fix-online.sbis.ru"
-        const val USER_SID = "00000003-00066e3e-00ba-b977e62f351fda3b"
-        const val USER_PID = "fcdb06d6-1b50-4aee-8336-b13d39e19e65"
+        private const val PHOTO_HOST_URL_2 = "online.sbis.ru"
     }
 
 
     private lateinit var okHttpClient: OkHttpClient
 
-    private val cookie = CookieManager().apply {
-        addCookie(
-            PHOTO_HOST_URL,
-            Cookie.Builder()
-                .domain(PHOTO_HOST_URL)
-                .name("sid")
-                .value(USER_SID)
-                .build()
-        )
-
-        addCookie(
-            PHOTO_HOST_URL,
-            Cookie.Builder()
-                .domain(PHOTO_HOST_URL)
-                .name("pid")
-                .value(USER_PID)
-                .build()
-        )
-    }
+    private val cookie = CookieManager()
 
     val handlerUi = Handler()
 
@@ -55,8 +37,11 @@ class App : Application() {
         super.onCreate()
         instance = this
 
+        updateCookieSid()
+
         okHttpClient = OkHttpClient().newBuilder()
             .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.SECONDS)
+            .readTimeout(SOCKET_TIME_OUT, TimeUnit.SECONDS)
             .cookieJar(cookie)
             .build()
 
@@ -72,4 +57,27 @@ class App : Application() {
 
     fun getStorageService(): StorageService =
         StorageServiceImpl(this)
+
+    fun getNetworkClient(): OkHttpClient = okHttpClient
+
+    fun updateCookieSid() {
+        val userSid = getStorageService().getUserSid()
+        cookie.addCookie(
+            PHOTO_HOST_URL,
+            Cookie.Builder()
+                .domain(PHOTO_HOST_URL)
+                .name("sid")
+                .value("00000003-006d0d8f-00ba-20522160f7b438e8")
+                .build()
+        )
+
+        cookie.addCookie(
+            PHOTO_HOST_URL_2,
+            Cookie.Builder()
+                .domain(PHOTO_HOST_URL_2)
+                .name("sid")
+                .value("00000003-006d0d8f-00ba-20522160f7b438e8")
+                .build()
+        )
+    }
 }

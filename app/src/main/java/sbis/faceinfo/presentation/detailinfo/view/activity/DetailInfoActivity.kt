@@ -8,9 +8,11 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import sbis.App
+import sbis.data.model.presentation.PersonSearch
 import sbis.faceinfo.R
 import sbis.faceinfo.databinding.ActivityDetailInfoBinding
 import sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract
@@ -31,11 +33,11 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         private const val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.1f
         private const val ALPHA_ANIMATIONS_DURATION = 200
 
-        private val ARG_USER_ID = "ARG_USER_ID"
+        private val ARG_USER = "ARG_USER"
 
-        fun createIntent(context: Context, userId: String): Intent =
+        fun createIntent(context: Context, user: PersonSearch): Intent =
             Intent(context, DetailInfoActivity::class.java).apply {
-                putExtra(ARG_USER_ID, userId)
+                putExtra(ARG_USER, user)
             }
     }
 
@@ -53,8 +55,8 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         )
 
     override fun createViewModel(): DetailInfoVmContract.ViewModel {
-        val userId = intent.extras.getString(ARG_USER_ID)
-        return ViewModelProviders.of(this, DetailInfoViewModelFactory(userId))
+        val user = intent.extras.getParcelable<PersonSearch>(ARG_USER)
+        return ViewModelProviders.of(this, DetailInfoViewModelFactory(user))
             .get(DetailInfoViewModel::class.java)
     }
 
@@ -69,7 +71,7 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
         startAlphaAnimation(binding.toolbarUserName, 0, View.INVISIBLE)
 
         detailParamsAdapter = DetailParamsAdapter().apply {
-            setItems(viewModel.user.value?.params ?: emptyList())
+            setItems(viewModel.userParams.value?.params ?: emptyList())
         }
 
         binding.rvParamItems.apply {
@@ -80,7 +82,7 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
     }
 
     override fun createSubscribers() {
-        viewModel.user.observe(this@DetailInfoActivity, Observer {
+        viewModel.userParams.observe(this@DetailInfoActivity, Observer {
             detailParamsAdapter.setItems(it?.params)
         })
 

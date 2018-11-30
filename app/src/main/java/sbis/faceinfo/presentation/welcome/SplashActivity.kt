@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (checkAvailableServerUrl()) showSettingScreen()
+        if (checkAvailableSettings()) showSettingScreen()
         else {
             Handler().postDelayed({
                 startActivity(SearchActivity.createIntent(this))
@@ -20,8 +20,9 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkAvailableServerUrl() =
+    private fun checkAvailableSettings() =
         App.get().getStorageService().getServerUrl().isEmpty()
+                || App.get().getStorageService().getUserSid().isEmpty()
 
     private fun showSettingScreen() {
         startActivity(SettingActivity.createIntent(this))

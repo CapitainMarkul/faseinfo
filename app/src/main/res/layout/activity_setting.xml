@@ -9,6 +9,31 @@
         android:padding="16dp">
 
         <EditText
+            android:id="@+id/etxt_user_sid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/user_sid_hint"
+            android:textColor="@color/colorTextPrimary"
+            android:textColorHint="@color/colorTextSecondary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_help_sid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_help_sid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Пример: 00000003-00066e3e-00ba-b977e62f351fda3b"
+            android:textColor="@color/colorTextSecondary"
+            app:layout_constraintBottom_toTopOf="@+id/etxt_server_url"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
             android:id="@+id/etxt_server_url"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

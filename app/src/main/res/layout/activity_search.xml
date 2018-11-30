@@ -23,8 +23,8 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:elevation="4dp">
 
             <LinearLayout
@@ -47,6 +47,7 @@
                     android:id="@+id/etxt_search_request"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:hint="Фамилия Имя"
                     android:inputType="text"
@@ -71,7 +72,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorAppBarDivider"/>
+                android:background="@color/colorAppBarDivider" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -91,6 +92,31 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="?attr/actionBarSize"
             android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}" />
+
+        <LinearLayout
+            list_person="@{viewModel.searchPersons}"
+            state_vm="@{viewModel.state}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/not_found" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/empty_search_list"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

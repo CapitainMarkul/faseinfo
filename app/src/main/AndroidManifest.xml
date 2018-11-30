@@ -38,6 +38,7 @@
 
         <activity
             android:name=".presentation.detailinfo.view.activity.DetailInfoActivity"
+            android:theme="@style/DetailInfoTheme"
             android:screenOrientation="portrait" />
 
         <activity
