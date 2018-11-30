@@ -25,10 +25,14 @@ class SearchInteractor(private val networkService: NetworkService) :
             override fun onResponse(call: Call, response: Response) {
                 val resultJson = response.body()!!.string()
 
-                val type = object : TypeToken<List<PersonSearchGson>>() {}.type
-                val persons = Gson().fromJson<List<PersonSearchGson>>(resultJson, type)
+                try {
+                    val type = object : TypeToken<List<PersonSearchGson>>() {}.type
+                    val persons = Gson().fromJson<List<PersonSearchGson>>(resultJson, type)
 
-                runUi { listener?.obtainedPersons(persons.transformToPresentationList(), null) }
+                    runUi { listener?.obtainedPersons(persons.transformToPresentationList(), null) }
+                } catch (e: Exception) {
+                    runUi { listener?.obtainedPersons(emptyList(), Exception(resultJson)) }
+                }
             }
         })
     }

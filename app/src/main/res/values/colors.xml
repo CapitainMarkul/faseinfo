@@ -14,5 +14,5 @@
 
     <color name="colorPrimaryBackground">#FBFBFB</color>
 
-    <color name="colorCircleBackground">#B3F2EEEF</color> <!--70%-->
+    <color name="colorCircleBackground">#F2F2F2</color>
 </resources>

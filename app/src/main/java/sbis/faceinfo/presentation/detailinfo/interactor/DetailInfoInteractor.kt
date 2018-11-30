@@ -28,7 +28,7 @@ class DetailInfoInteractor(private val networkService: NetworkService) :
                     val person = Gson().fromJson<PersonParamsGson>(resultJson, PersonParamsGson::class.java)
                     runUi { listener?.obtainedUserFulInfo(person.transformToPresentation(), null) }
                 } catch (e: Exception) {
-                    runUi { listener?.obtainedUserFulInfo(null, e) }
+                    runUi { listener?.obtainedUserFulInfo(null, Exception(resultJson)) }
                 }
             }
         })

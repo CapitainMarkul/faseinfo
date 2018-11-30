@@ -72,7 +72,6 @@ abstract class BaseActivity<PRESENTER : MvpPresenter<VIEW_MODEL>, VIEW_MODEL : M
     fun showErrorMessage(errorMessage: String) {
         errorDialog = MaterialDialog.Builder(this@BaseActivity)
             .content(errorMessage)
-            .positiveColor(ContextCompat.getColor(this, R.color.colorPrimaryBackground))
             .positiveText(android.R.string.ok)
             .build()
         errorDialog?.show()

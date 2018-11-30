@@ -104,7 +104,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="20dp"
                 tools:visibility="visible">
 
                 <LinearLayout
@@ -146,7 +145,7 @@
                     android:layout_width="@dimen/progress_bar_size"
                     android:layout_height="@dimen/progress_bar_size"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="4dp"
                     android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}" />
 
             </FrameLayout>

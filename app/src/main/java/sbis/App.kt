@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit
 
 class App : Application() {
     companion object {
-        const val CONNECTION_TIME_OUT = 60L
-        const val SOCKET_TIME_OUT = 60L
+        const val CONNECTION_TIME_OUT = 300L
+        const val SOCKET_TIME_OUT = 300L
 
         lateinit var instance: App
 
@@ -67,7 +67,7 @@ class App : Application() {
             Cookie.Builder()
                 .domain(PHOTO_HOST_URL)
                 .name("sid")
-                .value("00000003-006d0d8f-00ba-20522160f7b438e8")
+                .value(userSid)
                 .build()
         )
 
@@ -76,7 +76,7 @@ class App : Application() {
             Cookie.Builder()
                 .domain(PHOTO_HOST_URL_2)
                 .name("sid")
-                .value("00000003-006d0d8f-00ba-20522160f7b438e8")
+                .value(userSid)
                 .build()
         )
     }
