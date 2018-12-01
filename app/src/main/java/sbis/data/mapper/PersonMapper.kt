@@ -7,25 +7,25 @@ import sbis.data.model.presentation.Param
 import sbis.data.model.presentation.PersonParams
 import sbis.data.model.presentation.PersonSearch
 
+fun PersonParamsGson.transformToPresentation() = PersonParams(
+    oftenLeaving = oftenLeaving,
+    params = arrayListOf(
+        ItemParam(Param.PROCRASTINATION, procrastination),
+        ItemParam(Param.PUNCTUALITY, punctuality),
+        ItemParam(Param.RESPONSIBILITY, responsibility),
+        ItemParam(Param.SOCIABILITY, sociability),
+        ItemParam(Param.LEAVING_STATE, leavingState)
+    )
+)
+
 fun PersonSearchGson.transformToPresentation() =
     PersonSearch(
         id = id,
         name = name,
-        secondName = secondName,
+        photoUrl = photoUrl,
         postName = postName,
-        photoUrl = photoUrl
+        secondName = secondName
     )
 
 fun List<PersonSearchGson>.transformToPresentationList() =
     map { it.transformToPresentation() }
-
-fun PersonParamsGson.transformToPresentation() =
-    PersonParams(
-        oftenLeaving = oftenLeaving,
-        params = listOf(
-            ItemParam(Param.RESPONSIBILITY, responsibility),
-            ItemParam(Param.PROCRASTINATION, procrastination),
-            ItemParam(Param.SOCIABILITY, sociability),
-            ItemParam(Param.PUNCTUALITY, punctuality)
-        )
-    )

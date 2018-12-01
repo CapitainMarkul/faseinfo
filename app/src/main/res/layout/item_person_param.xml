@@ -22,12 +22,14 @@
         <ImageView
             android:id="@+id/img_category"
             img_selector="@{viewModel.param}"
+            inactive_view_img="@{viewModel}"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="0.15"
             tools:src="@drawable/ic_responsible" />
 
         <TextView
+            inactive_view="@{viewModel}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.65"

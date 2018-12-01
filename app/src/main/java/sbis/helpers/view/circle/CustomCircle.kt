@@ -16,6 +16,9 @@ class CustomCircle @JvmOverloads constructor(
 
     private var paddingView = 0F
     private var isInverseColors = false
+    private var isCenterParam = false
+    private var isEnabledView = true
+    private var index = 0
 
     private val colors = listOf(
         Color.parseColor("#F82E47"), // <- BAD
@@ -30,9 +33,26 @@ class CustomCircle @JvmOverloads constructor(
         Color.parseColor("#00CC66")  // <- GOOD
     )
 
+    private val colorsCenter = listOf(
+        Color.parseColor("#F82E47"), //F82E47<- BAD
+        Color.parseColor("#FF9966"), //FF9966
+        Color.parseColor("#FFCC33"), //FFCC33
+        Color.parseColor("#00CC33"), //00CC33
+        Color.parseColor("#00CC66"), //00CC66
+        Color.parseColor("#00CC33"), //00CC33
+        Color.parseColor("#FFCC33"), //FFCC33
+        Color.parseColor("#FF9966"), //FF9966
+        Color.parseColor("#FF3366"), //FF3366
+        Color.parseColor("#F82E47")  // F82E47 // <- GOOD
+    )
+
     private val scaleStart = 0.4F
     private val scaleEnd = 1.0F
     private val scaleStepCount = 9
+
+    private val defaultBackgroundColor = ContextCompat.getColor(context!!, R.color.colorCircleBackground)
+    private val defaultBackgroundColorInactive =
+        ContextCompat.getColor(context!!, R.color.colorCircleBackgroundInactive)
 
     private val scaleList = mutableListOf<Float>().apply {
         val scaleStep = (scaleEnd - scaleStart) / scaleStepCount
@@ -41,15 +61,27 @@ class CustomCircle @JvmOverloads constructor(
         (0..8).forEach { add(this[it] + scaleStep) }
     }
 
+    private val scaleListCenter = mutableListOf<Float>().apply {
+        add(0.4F)
+        add(0.53333336F)
+        add(0.73333335F)
+        add(0.8666667F)
+        add(1.0F)
+        add(0.8666667F)
+        add(0.73333335F)
+        add(0.53333336F)
+        add(0.46666667F)
+        add(0.4F)
+    }
+
     private val circleBackgroundPaint = Paint().apply {
         isAntiAlias = true
-        color = ContextCompat.getColor(context!!, R.color.colorCircleBackground)
+        color = defaultBackgroundColor
         style = Paint.Style.FILL
     }
 
     private val circlePaint = Paint().apply {
         isAntiAlias = true
-        color = Color.GREEN
         style = Paint.Style.FILL
 
         //shadow
@@ -90,8 +122,17 @@ class CustomCircle @JvmOverloads constructor(
     }
 
     fun setParamValue(value: Int) {
-        textValue = if (value > 0) value.toString() else "1"
+        index = value
+        textValue = if (value >= 0) value.toString() else "?"
         calculateTextParam()
+    }
+
+    fun setCenterParam(isCenter: Boolean) {
+        isCenterParam = isCenter
+    }
+
+    fun setEnabledView(isEnabled: Boolean) {
+        isEnabledView = isEnabled
     }
 
     private fun calculateTextParam() {
@@ -111,12 +152,19 @@ class CustomCircle @JvmOverloads constructor(
 
         //Draw Foreground Circle
         val paramMaxIndex = 9 //0..9
-        val currentIndex = textValue.toInt() - 1
+
+        val tempIndex = index - 1
+        val currentIndex = if (tempIndex < 0) 0 else tempIndex
         val colorIndex = if (!isInverseColors) currentIndex else paramMaxIndex - currentIndex
 
-        val foregroundCircleRadius = fullViewRadius * scaleList[currentIndex]
+        val scaleIndex = if (currentIndex >= 0) currentIndex else 0
+        val foregroundCircleRadius = fullViewRadius * if(!isCenterParam) scaleList[scaleIndex] else scaleListCenter[scaleIndex]
         canvas.drawCircle(x, y, foregroundCircleRadius, circlePaint.apply {
-            color = colors[colorIndex]
+            color =
+                    if (!isEnabledView) defaultBackgroundColorInactive
+                    else {
+                        if (!isCenterParam) colors[colorIndex] else colorsCenter[colorIndex]
+                    }
         })
 
         //Draw Center Text

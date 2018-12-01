@@ -1,7 +1,10 @@
 package sbis.faceinfo.presentation.detailinfo.view
 
 import android.databinding.BindingAdapter
+import android.support.v4.content.ContextCompat
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
@@ -30,6 +33,7 @@ fun ImageView.setParamImg(itemParam: Param?) {
             Param.PROCRASTINATION -> R.drawable.ic_procrastination
             Param.SOCIABILITY -> R.drawable.ic_sociable
             Param.RESPONSIBILITY -> R.drawable.ic_responsible
+            Param.LEAVING_STATE -> R.drawable.ic_run_man_black
         }
 
         setImageDrawable(context.getDrawable(drawableId))
@@ -44,7 +48,30 @@ fun CustomCircle.circleSetup(itemParam: ItemParam?) {
         setPadding(4F)
         setParamValue(itemParam.value)
         setInverseColors(itemParam.param.isNegative)
+        setCenterParam(itemParam.param == Param.SOCIABILITY)
+        setEnabledView(itemParam.value != -1)
 
         invalidate()
+    }
+}
+
+@BindingAdapter("inactive_view")
+fun TextView.inactiveView(itemParam: ItemParam?) {
+    itemParam?.let {
+        if (it.value == -1) {
+            setTextColor(context.getColor(R.color.colorTextSecondary))
+        } else {
+            setTextColor(context.getColor(R.color.colorTextPrimary))
+        }
+    }
+}
+
+@BindingAdapter("inactive_view_img")
+fun ImageView.inactiveViewImg(itemParam: ItemParam?) {
+    itemParam?.let {
+        val colorFilter = if (it.value == -1) R.color.colorTextSecondary else R.color.colorTintDefault
+        setColorFilter(
+            ContextCompat.getColor(context, colorFilter), android.graphics.PorterDuff.Mode.SRC_IN
+        )
     }
 }

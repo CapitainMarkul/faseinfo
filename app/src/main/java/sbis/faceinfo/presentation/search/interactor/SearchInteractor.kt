@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
+import sbis.data.mapper.transformToPresentation
 import sbis.data.mapper.transformToPresentationList
 import sbis.data.model.gson.PersonSearchGson
 import sbis.domain.network.service.network.NetworkService

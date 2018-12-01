@@ -7,5 +7,6 @@ data class PersonParamsGson(
     @SerializedName("user_responsibility") val responsibility: Int,
     @SerializedName("user_procrastination") val procrastination: Int,
     @SerializedName("user_sociability") val sociability: Int,
-    @SerializedName("user_punctuality") val punctuality: Int
+    @SerializedName("user_punctuality") val punctuality: Int,
+    @SerializedName("user_leaving_state") val leavingState: Int
 )

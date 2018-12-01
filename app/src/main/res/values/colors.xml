@@ -15,4 +15,7 @@
     <color name="colorPrimaryBackground">#FBFBFB</color>
 
     <color name="colorCircleBackground">#F2F2F2</color>
+    <color name="colorCircleBackgroundInactive">#666666</color>
+
+    <color name="colorTintDefault">#313131</color>
 </resources>

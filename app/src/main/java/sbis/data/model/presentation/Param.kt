@@ -6,6 +6,7 @@ enum class Param(
 ) {
     RESPONSIBILITY("Ответственность", false),
     PROCRASTINATION("Прокрастинация", true),
-    SOCIABILITY("Коммуникабельность", false),
-    PUNCTUALITY("Пунктуальность", false)
+    SOCIABILITY("Общительность", false),
+    PUNCTUALITY("Пунктуальность", false),
+    LEAVING_STATE("Вероятность увольнения", true)
 }
