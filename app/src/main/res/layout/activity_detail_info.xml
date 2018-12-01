@@ -92,19 +92,22 @@
 
         <!-- ===================================== -->
 
-        <android.support.v4.widget.NestedScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/detail_content_space_top"
-            android:background="@color/colorPrimary"
             android:scrollbars="none"
             app:behavior_overlapTop="@dimen/detail_content_space_top"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:visibility="visible">
 
-            <FrameLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:visibility="visible">
+                android:layout_marginTop="@dimen/detail_content_space_top"
+                android:background="@color/colorPrimary"
+                android:scrollbars="none"
+                app:behavior_overlapTop="@dimen/detail_content_space_top"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,30 +144,93 @@
 
                 </LinearLayout>
 
+            </android.support.v4.widget.NestedScrollView>
+
+            <TextView
+                android:id="@+id/txt_data_mining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="120dp"
+                android:gravity="center"
+                android:text="Подождите, \nData Mining - это не быстро..."
+                android:textSize="22sp"
+                android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}">
+                    android:divider="@drawable/middle_divider"
+                    android:showDividers="middle"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Подождите, Data Mining - это не быстро..."
-                        android:textSize="18sp" />
-
-                    <ProgressBar
+                    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
                         android:layout_width="@dimen/progress_bar_size"
                         android:layout_height="@dimen/progress_bar_size"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        app:alliance_animDuration="200"
+                        app:alliance_distanceMultiplier="2"
+                        app:alliance_dotsRadius="8dp"
+                        app:alliance_drawOnlyStroke="true"
+                        app:alliance_firstDotsColor="@color/colorTextPrimary"
+                        app:alliance_secondDotsColor="@color/colorTextSecondary"
+                        app:alliance_strokeWidth="8dp"
+                        app:alliance_thirdDotsColor="@color/colorCircleBackground" />
+
+                    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/progress_bar_size"
+                        android:layout_gravity="center"
+                        app:alliance_animDuration="400"
+                        app:alliance_distanceMultiplier="4"
+                        app:alliance_dotsRadius="8dp"
+                        app:alliance_drawOnlyStroke="true"
+                        app:alliance_firstDotsColor="@color/colorTextPrimary"
+                        app:alliance_secondDotsColor="@color/colorTextSecondary"
+                        app:alliance_strokeWidth="4dp"
+                        app:alliance_thirdDotsColor="@color/colorCircleBackground" />
+
+                    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/progress_bar_size"
+                        android:layout_gravity="center"
+                        app:alliance_animDuration="600"
+                        app:alliance_distanceMultiplier="4"
+                        app:alliance_dotsRadius="5dp"
+                        app:alliance_drawOnlyStroke="false"
+                        app:alliance_firstDotsColor="@color/colorTextPrimary"
+                        app:alliance_secondDotsColor="@color/colorTextSecondary"
+                        app:alliance_strokeWidth="6dp"
+                        app:alliance_thirdDotsColor="@color/colorCircleBackground" />
+
+                    <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/progress_bar_size"
+                        android:layout_gravity="center"
+                        app:alliance_animDuration="800"
+                        app:alliance_distanceMultiplier="4"
+                        app:alliance_dotsRadius="9dp"
+                        app:alliance_drawOnlyStroke="false"
+                        app:alliance_firstDotsColor="@color/colorTextPrimary"
+                        app:alliance_secondDotsColor="@color/colorTextSecondary"
+                        app:alliance_strokeWidth="4dp"
+                        app:alliance_thirdDotsColor="@color/colorCircleBackground" />
 
                 </LinearLayout>
 
-            </FrameLayout>
+            </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </FrameLayout>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_user_name"

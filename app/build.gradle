@@ -60,6 +60,9 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
+    // Loaders
+    implementation 'com.agrawalsuneet.androidlibs:dotsloader:1.1'
+
     kapt "com.android.databinding:compiler:$compilerVersion"
 
     testImplementation 'junit:junit:4.12'

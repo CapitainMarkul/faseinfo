@@ -1,5 +1,7 @@
 package sbis.faceinfo.presentation.detailinfo.view.activity
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -8,7 +10,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import sbis.App
@@ -79,6 +80,12 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@DetailInfoActivity, LinearLayoutManager.VERTICAL, false)
         }
+
+        val alphaAnimator = ObjectAnimator.ofFloat(binding.txtDataMining, View.ALPHA, 0.2f, 1.0f)
+        alphaAnimator.duration = 800
+        alphaAnimator.repeatMode = ValueAnimator.REVERSE
+        alphaAnimator.repeatCount = ValueAnimator.INFINITE
+        alphaAnimator.start()
     }
 
     override fun createSubscribers() {

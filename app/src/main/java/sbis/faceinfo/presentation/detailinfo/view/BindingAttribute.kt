@@ -2,11 +2,8 @@ package sbis.faceinfo.presentation.detailinfo.view
 
 import android.databinding.BindingAdapter
 import android.support.v4.content.ContextCompat
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import sbis.data.model.presentation.ItemParam

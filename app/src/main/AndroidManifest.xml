@@ -34,6 +34,7 @@
 
         <activity
             android:name=".presentation.search.view.activity.SearchActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
 
         <activity

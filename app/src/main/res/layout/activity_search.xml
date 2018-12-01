@@ -85,13 +85,19 @@
             tools:itemCount="4"
             tools:listitem="@layout/item_search_person" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="@dimen/progress_bar_size"
+        <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/progress_bar_size"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}" />
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}"
+            app:alliance_animDuration="600"
+            app:alliance_distanceMultiplier="4"
+            app:alliance_dotsRadius="5dp"
+            app:alliance_drawOnlyStroke="false"
+            app:alliance_firstDotsColor="@color/colorTextPrimary"
+            app:alliance_secondDotsColor="@color/colorTextSecondary"
+            app:alliance_strokeWidth="6dp"
+            app:alliance_thirdDotsColor="@color/colorCircleBackground" />
 
         <LinearLayout
             list_person="@{viewModel.searchPersons}"
@@ -101,7 +107,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="?attr/actionBarSize"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"

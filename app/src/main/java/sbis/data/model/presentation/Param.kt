@@ -8,5 +8,5 @@ enum class Param(
     PROCRASTINATION("Прокрастинация", true),
     SOCIABILITY("Общительность", false),
     PUNCTUALITY("Пунктуальность", false),
-    LEAVING_STATE("Вероятность увольнения", true)
+    LEAVING_STATE("Вероятность ухода", true)
 }
